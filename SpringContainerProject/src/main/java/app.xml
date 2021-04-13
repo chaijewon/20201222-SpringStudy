@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- ApplicationContext(Container):여러개 클래스를 모아서 관리 
+                 컨테이너 : 객체생성 ~ 객체소멸 (생명주기)
+                 스프링에서 지원하는 컨테이너의 종류 
+                   BeanFactory : Core(DL/DI) => 객체 찾기(DL) => getBean() , 객체에 필요한 값을 주입(DI)
+                        |                  ====================> db연동 , 서버연동 , 다른 언어 연결
+                                            DI => 1) setter DI , 2) constructor DI
+                                                  3) 메소드 호출 (생성시 init-method , 종료시 destory-method)     
+                 ApplicationContext : Core(DL/DI),AOP(공통모듈) => 필요시 자동으로 호출 
+                    |           |
+      WebApplicationContext  AnnotationConfigApplicationContext:Core(DL/DI),AOP(공통모듈),순수자바 사용
+    Core(DL/DI),AOP(공통모듈),MVC
+    
+          ==> 동작 순서 
+              1) 메모리 할당 Class.forName("클래스명")
+                 class="com.sist.spring.Sawon" ===> Sawon() => default생성자
+              2) Map에 저장 
+              3) DI 설정 (setter,생성자) => 객체생성후에 값을 주입 
+              4) 메소드 DI를 호출 
+              ============================================
+              5) 프로그래머가 메소드 호출 
+              ============================================
+              6) 객체 소멸 
+     -->
+    <bean id="sa" class="com.sist.main.Sawon"/>
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
