@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 스프링에서 생성된 객체 주소를 주입: 해당 클래스의 id
+         ref를 이용해서 주입한다
+         
+         Student s="student"
+     -->
+    <bean id="school" class="com.sist.ref.School"
+      p:std-ref="student"
+    />
+    <bean id="school1" class="com.sist.ref.School"
+      c:std-ref="student"
+    />
+    <bean id="student" class="com.sist.ref.Student"
+      p:hakbun="1"
+      p:name="홍길동"
+      p:kor="80"
+      p:eng="90"
+      p:math="78"
+    />
+</beans>

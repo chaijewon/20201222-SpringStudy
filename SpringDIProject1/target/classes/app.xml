@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- Setter  -->
+    <bean id="sa1" class="com.sist.main.Sawon"><!-- Class.forName("com.sist.main.Sawon") -->
+      <property name="name" value="홍길동"/><!-- sa.setName("홍길동") -->
+      <property name="sex" value="남자"/>
+      <property name="addr" value="서울"/>
+    </bean>
+    
+    <bean id="sa2" class="com.sist.main.Sawon"
+      p:name="심청이"
+      p:sex="여자"
+      p:addr="경기"
+    />
+    <!-- 생성자 주입
+         Sawon(String name,String sex,String addr)
+                      0        1          2
+     -->
+    <bean id="sa3" class="com.sist.main.Sawon">
+      <constructor-arg value="박문수" index="0"/><!-- index는 생략이 가능  -->
+      <constructor-arg value="남자" index="1"/>
+      <constructor-arg value="강원" index="2"/>
+    </bean>
+    
+    <bean id="sa4" class="com.sist.main.Sawon"
+      c:name="이순신"
+      c:sex="남자"
+      c:addr="부산"
+    />
+    
+    <bean id="sa5" class="com.sist.main.Sawon"
+      c:_0="춘향이"
+      c:_1="여자"
+      c:_2="제주"
+    />
+    
+    <!-- 
+           Sawon sa1=new Sawon();
+           Sawon sa2=new Sawon();
+           Sawon sa3=new Sawon();
+           Sawon sa4=new Sawon();
+           Sawon sa5=new Sawon()
+           
+     -->
+    
+</beans>
+
+
+
+
+
+
+
+
+
+
