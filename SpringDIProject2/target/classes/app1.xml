@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
+       p:driverClassName="oracle.jdbc.driver.OracleDriver"
+       p:url="jdbc:oracle:thin:@localhost:1521:XE"
+       p:username="hr"
+       p:password="happy"
+    />
+    <bean id="dao" class="com.sist.main2.EmpDAO"
+       p:dataSource-ref="ds"
+    />
+</beans>
