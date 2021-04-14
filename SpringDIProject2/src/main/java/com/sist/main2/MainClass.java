@@ -18,5 +18,14 @@ public class MainClass {
        			+vo.getHiredate().toString()+" "
        			+vo.getSal());
 	   }
+	   System.out.println("=====================================");
+	   EmpVO vo=(EmpVO)dao.empDetailData(7788);
+	   System.out.println(vo.getEmpno()+" "
+      			+vo.getEname()+" "
+      			+vo.getJob()+" "
+      			+vo.getHiredate().toString()+" "
+      			+vo.getSal());
+	   System.out.println("=====================================");
+	   dao.studentInsert("홍길동", 80, 89, 78);
    }
 }

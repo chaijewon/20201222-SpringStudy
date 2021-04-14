@@ -5,6 +5,7 @@ import java.util.*;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
 /*
  *   public class JdbcDaoSupport
  *   {
@@ -24,6 +25,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
  *       }
  *   }
  */
+
 public class StudentDAO extends JdbcDaoSupport{
 	// JdbcDaoSupport ==> getConnection(),disConnection() => DataSource(오라클 정보)
 	/*

@@ -11,5 +11,8 @@ public class EmpDAO {
 	{
 		return mapper.empListData();
 	}
-   
+   public EmpVO empDetailData(int empno)
+   {
+	   return mapper.empDetailData(empno);
+   }
 }
