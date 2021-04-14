@@ -7,6 +7,7 @@ public class StudentVO {
     private int math;
     private int total;
     private double avg;
+    
 	public String getName() {
 		return name;
 	}
