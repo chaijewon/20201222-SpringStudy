@@ -56,6 +56,7 @@ public class EmpDAO extends SqlSessionDaoSupport{
     }
     public EmpVO empDetailData(int empno)
     {
+    	
     	return getSqlSession().selectOne("empDetailData",empno);
     }
 }
