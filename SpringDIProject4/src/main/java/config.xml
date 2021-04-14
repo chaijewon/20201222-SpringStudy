@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Connection -->
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!-- VO등록 -->
+  <typeAliases>
+    <typeAlias type="com.sist.main.EmpVO" alias="EmpVO"/>
+    <!-- <typeAlias type="com.sist.main2.EmpVO" alias="EmpVO2"/> -->
+  </typeAliases>
+  <!-- SQL문장 -->
+  <mappers>
+    <mapper resource="com/sist/main/emp-mapper.xml"/> 
+    <!-- <mapper resource="com/sist/main2/emp-mapper.xml"/> -->
+  </mappers>
+</configuration>

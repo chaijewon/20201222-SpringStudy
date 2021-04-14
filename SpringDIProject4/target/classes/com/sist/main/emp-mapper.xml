@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PreparedStatement,ResultSet -->
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- 
+      XML : namespace
+      Java : Package
+      
+      SELECT CEIL(MAX(no)/10.0) FROM board
+      resultType="int"
+      SELECT pwd,name,COUNT(*) FROM board
+      resultType="String"
+      
+      ==> Map,VO
+  -->
+<mapper namespace="com.sist.main.emp-mapper">
+  <!-- SQL문장 -->
+  <!-- 
+      public List<EmpVO> empAllData()
+      {
+      }
+      
+           공통모듈 (AOP)
+           
+           Before
+           =============
+                          메소드 
+           =============
+           After
+   -->
+  <sql id="select"> <!-- include : 반복이 많은 SQL문장 일 경우  -->
+    SELECT * FROM emp
+  </sql>
+  <select id="empAllData" resultType="EmpVO">
+    <include refid="select"/>
+  </select>
+  <!-- 
+        public EmpVO empDetailData(int empno)
+        {
+           return session.selectOne("id",empno)
+                          selectList
+        }
+   -->
+  <select id="empDetailData" resultType="EmpVO" parameterType="int">
+    <include refid="select"/>
+    WHERE empno=#{empno}
+  </select>
+  <!-- 
+       <select> : resultType(리턴형) 어떤 결과값 , parameterType(매개변수) => ?에 값을 채운다 
+       <insert> : parameterType
+       <update> : parameterType
+       <delete> : parameterType
+   -->
+</mapper>
+
+
+
+
+
+
+
+
+
