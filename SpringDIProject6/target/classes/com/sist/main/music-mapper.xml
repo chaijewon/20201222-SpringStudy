@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.main.music-mapper">
+  <!-- 프로그램에서 사용하는 SQL문장을 저장 
+       CURD => Create , Update , Read , Delete 
+               ======(Insert)    ====(Select)
+       1) Insert => <insert>
+       2) Update => <update>
+       3) Select => <select>
+       4) Delete => <delete>
+       ==> 1. id부여(Map에서 저장되는 키명 : 중복이 없이 만든다)
+           2. 결과값을 받는 경우 : resultType(SELECT문장에만 존재)
+                          결과값이 1개인 경우 => 일반데이터형 
+                 SELECT pwd FROM table_name  ==> String
+                 SELECT COUNT(*) FROM table_name ==> int
+                          결과값이 2개인 경우 => VO,Map
+                      VO로 먼저 처리 (VO에 없는 변수는 Map)
+                 SELECT MAX(hit),Min(hit) FROM table_name
+                        ======== ========= Map => 스칼라 서브쿼리
+                 SELECT no,title FROM table_name
+                        ========
+                          VO
+           3. 데이터베이스에 값을 추가 (?) : parameterType
+                SELECT * FROM table_name 
+                WHERE no=? => ?대신 #{no} => getNo()
+       => 동적 퀴리 <if> : 다중 검색  in(<forEach> , <where>)  
+   -->
+   <!-- 데이터 읽기 : 페이지 나누기 -->
+   <!-- id의 시작은 알파벳으로 한다 , 대소문자 구분 -->
+   <!-- start , end  
+        데이터 두개이상 => VO,Map
+        
+        Map map=new HashMap();
+        map.put("start",1)
+        map.put("end",10)
+        
+        #{start} => map에서 start는 키명
+        #{end}   => map에서 end는 키명
+   -->
+   <select id="musicListData" resultType="MusicVO" parameterType="hashmap">
+     SELECT no,title,singer,album,num 
+     FROM (SELECT no,title,singer,album,rownum as num 
+     FROM (SELECT no,title,singer,album 
+     FROM genie_music))
+     WHERE num BETWEEN #{start} AND #{end}
+   </select>
+   <!-- 총페이지 구하기 -->
+   <select id="musicTotalPage" resultType="int">
+     SELECT CEIL(COUNT(*)/10.0) FROM genie_music
+   </select>
+   <!-- 찾기
+        1) 제목 ==> title LIKE
+        2) 가수명 ==> singer LIKE
+        
+        #{} => 일반데이터 
+        ${} => table_name,column명을 설정
+    -->
+   <select id="musicFindData" resultType="MusicVO" parameterType="hashmap">
+     SELECT no,title,singer,album
+     FROM genie_music
+     WHERE ${column} LIKE '%'||#{finddata}||'%'
+   </select>
+   <!-- 상세보기 -->
+   <select id="musicDetailData" resultType="MusicVO" parameterType="int">
+     SELECT * FROM genie_music
+     WHERE no=#{no}
+   </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

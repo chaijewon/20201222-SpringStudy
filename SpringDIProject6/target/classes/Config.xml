@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mapper전체,VO전체를 모아준다  -->
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>
+  <!--  VO을 모아서 관리 -->
+  <typeAliases>
+    <typeAlias type="com.sist.main.MusicVO" alias="MusicVO"/>
+  </typeAliases>
+  <!-- SQL문장을 모아서 관리  -->
+  <mappers>
+    <mapper resource="com/sist/main/music-mapper.xml"/>
+  </mappers>
+</configuration>
