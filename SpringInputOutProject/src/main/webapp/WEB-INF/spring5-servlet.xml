@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!-- 사용자 정의 클래스 => 클래스가 많다 (패키지 단위로 등록 => 메모리 할당 클래스를 구분 = 어노테이션)
+         ~Controller : Model
+         ~DAO 
+         ~Manager
+     -->
+     <context:component-scan base-package="com.sist.*"/>
+     <!-- 
+        @Component, : 일반클래스 (~Manager:Jsoup(HTML파서),XML파서,R)
+        @Repository, : DAO
+        @Service, : DAO+DAO => DAO통합
+        @Controller, : Model (사이트 이동) => 리턴값이 경로/파일명
+        @RestController, : Model (값을 전송) => JSON,일반문자열,XML
+        @ControllerAdvice, : AOP
+        @Configuration : XML없이 환경설정(클래스를 등록)
+      -->
+      <!-- JSP를 찾는 클래스 등록  
+           /main/output.jsp.jsp
+      -->
+      <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+         p:prefix="/"
+         p:suffix=".jsp"
+      />
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
