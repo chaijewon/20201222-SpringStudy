@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sist.dao.*;
 
@@ -56,6 +57,35 @@ public class BoardController {
 	   BoardVO vo=dao.boardDetailData(no);
 	   model.addAttribute("vo", vo);
 	   return "board/detail";
+   }
+   @GetMapping("board/insert.do")
+   public String board_insert()
+   {
+	   return "board/insert";
+   }
+   @PostMapping("board/insert_ok.do")
+   public String board_insert_ok(BoardVO vo)
+   {
+	   dao.boardInsert(vo);
+	   return "redirect:list.do"; // 목록
+   }
+   @GetMapping("board/update.do")
+   public String board_update(int no,Model model)
+   {
+	   //DAO연동 
+	   BoardVO vo=dao.boardUpdateData(no);
+	   model.addAttribute("vo", vo);
+	   return "board/update";
+   }
+   // @Controller => return시 반드시 파일명,.do ==> @RestController를 사용해서 스크립트 전송
+   @PostMapping("board/update_ok.do")
+   public String board_update_ok(BoardVO vo,Model model)
+   {
+	   // 결과값 전송 => 비밀번호 체크 
+	   boolean bCheck=dao.boardUpdate(vo);
+	   model.addAttribute("no", vo.getNo());
+	   model.addAttribute("bCheck", bCheck);
+	   return "board/update_ok";
    }
 }
 

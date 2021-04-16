@@ -73,10 +73,48 @@
     WHERE no=#{no}
   </update>
   <!-- 글쓰기  -->
+  <insert id="boardInsert" parameterType="BoardVO">
+    INSERT INTO webboard VALUES(
+      (SELECT NVL(MAX(no)+1,1) FROM webboard),
+      #{name},
+      #{subject},
+      #{content},
+      #{pwd},
+      SYSDATE,
+      0
+    )
+  </insert>
   <!-- 수정 -->
+  <select id="boardGetPassword" resultType="String" parameterType="int">
+    SELECT pwd FROM webboard
+    WHERE no=#{no}
+  </select>
+  <update id="boardUpdate" parameterType="BoardVO">
+    UPDATE webboard SET
+    name=#{name},subject=#{subject},content=#{content}
+    WHERE no=#{no}
+  </update>
   <!-- 삭제 -->
+  <delete id="boardDelete" parameterType="int">
+    DELETE FROM webboard
+    WHERE no=#{no}
+  </delete>
   <!-- 찾기 -->
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

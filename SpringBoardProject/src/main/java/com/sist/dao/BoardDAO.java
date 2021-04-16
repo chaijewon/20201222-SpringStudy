@@ -47,7 +47,62 @@ public class BoardDAO extends SqlSessionDaoSupport{
     	getSqlSession().update("boardHitIncrement",no); // 조회수증가 
     	return getSqlSession().selectOne("boardDetailData", no);
     }
+    // 글쓰기
+    public void boardInsert(BoardVO vo)
+    {
+    	getSqlSession().insert("boardInsert",vo);
+    }
+    // 수정데이터 읽기 => 같은 SQL문장이 있는 경우 재사용이 가능 
+    public BoardVO boardUpdateData(int no)
+    {
+    	return getSqlSession().selectOne("boardDetailData",no);
+    }
+    // 수정하기
+    public boolean boardUpdate(BoardVO vo)
+    {
+    	boolean bCheck=false;
+    	// 비밀번호 받기 
+    	String db_pwd=getSqlSession().selectOne("boardGetPassword",vo.getNo());
+    	if(db_pwd.equals(vo.getPwd()))
+    	{
+    		bCheck=true;
+    		getSqlSession().update("boardUpdate",vo);
+    	}
+    	else
+    	{
+    		bCheck=false;
+    	}
+    	return bCheck;
+    }
+    // 삭제하기
+    public boolean boardDelete(int no,String pwd)
+    {
+    	boolean bCheck=false;
+    	String db_pwd=getSqlSession().selectOne("boardGetPassword",no);
+    	if(db_pwd.equals(pwd))
+    	{
+    		getSqlSession().delete("boardDelete",no);
+    		bCheck=true;
+    	}
+    	return bCheck;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
