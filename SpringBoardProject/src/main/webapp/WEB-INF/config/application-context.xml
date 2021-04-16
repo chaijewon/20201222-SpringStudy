@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!-- 사용자가 만든 모든 클래스를 메모리 할당 요청  -->
+    <context:component-scan base-package="com.sist.*"/>
+    <!-- ViewResolver에 경로명,확장자 전송 
+                 스프링은 자바전용이 아니다 
+         1) 경로명
+         2) 확장자 
+         
+         => return "board/list";  => 스픵에서는 전송시에 확장자를 사용하면 안됩니다 
+            => /board/list.jsp
+    -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/"
+          p:suffix=".jsp"
+     />
+</beans>

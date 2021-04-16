@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- VO와 mapper.xml파일 모아 두는곳 -->
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+    <typeAlias type="com.sist.dao.BoardVO" alias="BoardVO"/>
+  </typeAliases>
+  <mappers>
+    <mapper resource="com/sist/dao/board-mapper.xml"/><!-- xml에서 include -->
+  </mappers>
+</configuration>

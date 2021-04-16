@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.dao.board-mapper">
+  <!-- 목록 출력 : 페이징 -->
+  <!-- 
+       public List<BoardVO> boardListData(int page)  ==> selectList()
+       {
+            List<BoardVO> list=new ArrayList<BoardVO>();
+            try
+            {
+                 getConnection();
+                 String sql="~~ WHERE num BETWEEN ? AND ?"; ==> 1
+                             <select>SQL문장</select>
+                 ps=conn.preparedStatement(sql);
+                 ==================== 2  ==> parameterType
+                 ps.setInt(1,start);
+                 ps.setInt(2,end);
+                 ====================
+                 ResultSet rs=ps.executeQuery();
+                 while(rs.next())
+                 {
+                    ============================== 3 ==> resultType
+                     BoardVO vo=new BoardVO();
+                     vo.setNo(rs.getInt(1);
+                     vo.setName(rs.getString(2));
+                     
+                     ...
+                     ...
+                     ==============================
+                     list.add(vo);
+                 }
+            }catch(Exception ex)
+            {
+                 ex.printStackTrace();
+            }
+            finally
+            {
+                disConnection();
+            }
+            
+            return list;
+       }
+   -->
+   <!-- 
+        resultType="BoardVO" parameterType="hashmap" => 한번만 사용이 가능 
+        SELECT no,title FROM recipe
+              ==========
+              resultType="RecipeVO"
+              resultType="hashmap"
+    -->
+  <select id="boardListData" resultType="BoardVO" parameterType="hashmap">
+    SELECT no,subject,name,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,num
+    FROM (SELECT no,subject,name,regdate,hit,rownum as num 
+    FROM (SELECT no,subject,name,regdate,hit 
+    FROM webboard ORDER BY no DESC))
+    WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  <select id="boardTotalpage" resultType="int">
+    SELECT CEIL(COUNT(*)/10.0) FROM webboard
+  </select>
+  <!-- 상세보기  -->
+  <select id="boardDetailData" resultType="BoardVO" parameterType="int">
+    SELECT no,name,subject,content,regdate,hit 
+    FROM webboard
+    WHERE no=#{no}
+  </select>
+  <!-- 조회수 증가 -->
+  <update id="boardHitIncrement" parameterType="int">
+    UPDATE webboard SET
+    hit=hit+1
+    WHERE no=#{no}
+  </update>
+  <!-- 글쓰기  -->
+  <!-- 수정 -->
+  <!-- 삭제 -->
+  <!-- 찾기 -->
+</mapper>
+
+
+
+
+
