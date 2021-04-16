@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.movie-mapper">
+  <select id="movieListData" resultType="MovieVO" parameterType="hashmap">
+    SELECT mno,poster,title,num
+    FROM (SELECT mno,poster,title,rownum as num 
+    FROM (SELECT mno,poster,title 
+    FROM daum_movie ORDER BY mno ASC))
+    WHERE num BETWEEN #{start} AND #{end} 
+  </select>
+  <!-- 총페이지 -->
+  <select id="movieTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*)/20.0) FROM daum_movie
+  </select>
+  <select id="movieDetailData" resultType="MovieVO" parameterType="int">
+    SELECT * FROM daum_movie
+    WHERE mno=#{mno}
+  </select>
+  <select id="movieFindData" resultType="MovieVO" parameterType="String">
+    SELECT * FROM daum_movie
+    WHERE title LIKE '%'||#{title}||'%'
+  </select>
+</mapper>
