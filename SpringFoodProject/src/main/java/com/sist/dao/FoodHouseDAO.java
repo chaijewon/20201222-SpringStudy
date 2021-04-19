@@ -51,8 +51,15 @@ public class FoodHouseDAO extends SqlSessionDaoSupport{
 	{
 		return getSqlSession().selectList("categoryFoodData",cno);
 	}
-	
-	
+	/*
+	 *    기준 ROW (Record단위)
+	 *    1줄 =====> selectOne()
+	 *    여러줄====> selectList()
+	 */
+	public FoodHouseVO foodDetailData(int no)
+	{
+		return getSqlSession().selectOne("foodDetailData", no);
+	}
    
 }
 

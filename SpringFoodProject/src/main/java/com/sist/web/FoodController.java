@@ -110,6 +110,20 @@ public class FoodController {
 		model.addAttribute("list", list);
 		return "food/food_list";
 	}
+	// 기능 , 소스가 간략하다 => DAO
+	// food_detail.do?no=값
+	@RequestMapping("food/food_detail.do") //@GetMapping("food/food_detail.do")
+	public String food_detail(int no, Model model)
+	{
+		// DAO연동 
+		FoodHouseVO vo=hDao.foodDetailData(no);
+		String s=vo.getAddress();
+		s=s.substring(0,s.indexOf("지"));
+		vo.setAddress(s);
+		
+		model.addAttribute("vo", vo);
+		return "food/food_detail";// 파일명만 전달한다 => 파일명.jsp
+	}
 	
 }
 

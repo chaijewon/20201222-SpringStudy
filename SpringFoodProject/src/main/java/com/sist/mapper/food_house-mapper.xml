@@ -8,4 +8,8 @@
     FROM food_house
     WHERE cno=#{cno}
   </select>
+  <select id="foodDetailData" resultType="FoodHouseVO" parameterType="int">
+    SELECT * FROM food_house
+    WHERE no=#{no}
+  </select>
 </mapper>
