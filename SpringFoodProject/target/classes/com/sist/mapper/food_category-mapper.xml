@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL문장 (Statement,ResultSet) -->
+<!-- 
+      namespace : 자바의 package 
+      <mapper namespace="food_category">
+        <select id="food_list" resultType="" parameterType="">
+          SELECT * ~~
+        </select>
+      </mapper>
+      
+      DAO
+      public List<FoodCategoryVO> food_list()
+      {
+          return getSqlSession().selectList("food_list") => 오류발생 
+          return getSqlSession().selectList("food_category.food_list")
+      }
+      
+      fno ftitle fsubject fposter flink => 컬럼명 
+      
+      public class FoodCategoryVO {
+        private int no;
+        private String title;
+        private String subject;
+        private String poster;
+        private String link;
+      }
+      
+      SELECT fno as no,ftitle as title,fsubject as subject,fpoater,flink FROM food_category;
+ -->
+<mapper namespace="com.sist.mapper.food_category-mapper">
+     <!-- 
+            1번만 파싱 => map에 저장 => 일반 JDBC 
+                       ========
+                       map.put(id명,SELECT~~)
+                       id명은 숫자를 앞에 사용할 수 없다 
+      -->
+     <select id="foodCategoryListData" resultType="FoodCategoryVO" parameterType="int">
+        SELECT no,title,poster,subject 
+        FROM food_category
+        WHERE no=#{no}
+     </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!-- 사용자 정의 클래스 : 스프링에 등록하고 관리(객체생성 , 객체 소멸)를 요청  -->
+    <context:component-scan base-package="com.sist.*"/>
+    <!-- 
+           패키지 단위로 등록 : 메모리 할당할 클래스를 골라낸다 
+      @Component, 
+      @Repository,
+      @Service,
+      @Controller, 
+      @RestController, 
+      @ControllerAdvice, 
+      @Configuration
+     -->
+     <!-- ViewResolver등록 : JSP찾기 (경로명,확장자) -->
+     <!-- bean태그는 1개의 클래스를 등록할때 :라이브러리 클래스 등록  -->
+     <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+        p:prefix="/"
+        p:suffix=".jsp"
+     />
+</beans>
+
+
+
+
+
+
+
+
+
+

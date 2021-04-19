@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  VO , mapper.xml을 모아서 한번에 파싱할 목적  -->
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 
+    XML없이 처리가 가능 (XML을 대체하는 프로그램 : 어노테이션)
+ -->
+<configuration>
+  <!-- 
+       (properties?, settings?(O), typeAliases?(VO), typeHandlers?(O), objectFactory?, objectWrapperFactory?, 
+        reflectorFactory?, plugins?, environments?, databaseIdProvider?, mappers?(mapper.xml)) 
+   -->
+   <typeAliases>
+      <typeAlias type="com.sist.vo.FoodCategoryVO" alias="FoodCategoryVO"/>
+      <!-- 
+          <select id="" resultType="com.sist.vo.FoodCategoryVO" parameterType="FoodCategoryVO">
+            => id=SQL문장 읽기
+       -->
+       <typeAlias type="com.sist.vo.FoodHouseVO" alias="FoodHouseVO"/>
+   </typeAliases>
+   <mappers>
+       <mapper resource="com/sist/mapper/food_category-mapper.xml"/>
+       <mapper resource="com/sist/mapper/food_house-mapper.xml"/>
+   </mappers>
+</configuration>
+ 
