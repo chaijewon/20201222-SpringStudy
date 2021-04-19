@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+    SqlSessionFactory 
+      Map map=new HashMap()
+      map.put("recipeListData", SELECT no,poster,title,chef,num
+							    FROM (SELECT no,poster,title,chef,rownum ad num 
+							    FROM (SELECT no,poster,title,chef 
+							    FROM recipe ORDER BY no ASC))
+							    WHERE num BETWEEN #{start} AND #{end}
+	  getSqlSession().selectList("recipeListData",map)
+	  {
+	      
+	      *****String sql=sqlSessionMap.get("recipeListData");
+	      PreparedStatement ps=conn.preparedStatement(sql);
+	      *****ps.setInt(1,map.get("start"))
+	      *****ps.setInt(2,map.get("end"))
+	      ResultSet rs=ps.executeQuery();
+	      while(rs.next())
+	      {
+	         Class clsName=Class.forName("resultType명");
+	         Object obj=clsName.newInstance();
+	         *****RecipeVO vo=(RecipeVO)obj;
+	         vo.setNo(rs.getInt("no")) => column명 ,index번호 
+	      }
+	  }
+
+ -->
+<mapper namespace="com.sist.dao.recipe-mapper">
+  <!-- 레시피 목록 출력 -->
+  <select id="recipeListData" resultType="RecipeVO" parameterType="hashmap">
+    SELECT no,poster,title,chef,num
+    FROM (SELECT no,poster,title,chef,rownum as num 
+    FROM (SELECT no,poster,title,chef 
+    FROM recipe ORDER BY no ASC))
+    WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  <!-- 총페이지 -->
+  <select id="recipeTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*)/12.0) FROM recipe
+  </select>
+  <!-- 상세보기 -->
+  <select id="recipeDetailData" resultType="RecipeDetailVO" parameterType="int">
+    SELECT * FROM recipe_make
+    WHERE rno=#{rno}
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
