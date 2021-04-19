@@ -6,7 +6,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
     <!-- 사용자 정의 클래스 : 스프링에 등록하고 관리(객체생성 , 객체 소멸)를 요청  -->
-    <context:component-scan base-package="com.sist.*"/>
+    <context:component-scan base-package="com.sist.*"/> <!-- 클래스메모리 할당 map에 저장 (DI는 사용할 수 없다) -->
     <!-- 
            패키지 단위로 등록 : 메모리 할당할 클래스를 골라낸다 
       @Component, 
@@ -16,6 +16,12 @@
       @RestController, 
       @ControllerAdvice, 
       @Configuration
+      
+      DI사용 (객체 주소 주입)
+      @Autowired, => 자동 주입
+      @PostConstruct, => init-method (객체 생성시에 자동 호출) => 드라이버 등록 , 네트워크 서버 연결
+      @PreDestroy, => destory-method (객체 소멸시에 자동 호출) => 데이터베이스 종료 , 네트워크 서버 해제 
+      @Resource, => 특정 객체를 찾는 경우 
      -->
      <!-- ViewResolver등록 : JSP찾기 (경로명,확장자) -->
      <!-- bean태그는 1개의 클래스를 등록할때 :라이브러리 클래스 등록  -->

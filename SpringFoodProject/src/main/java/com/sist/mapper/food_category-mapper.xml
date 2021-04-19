@@ -37,11 +37,28 @@
                        map.put(id명,SELECT~~)
                        id명은 숫자를 앞에 사용할 수 없다 
       -->
-     <select id="foodCategoryListData" resultType="FoodCategoryVO" parameterType="int">
+     <select id="foodCategoryListData" resultType="FoodCategoryVO" parameterType="hashmap">
         SELECT no,title,poster,subject 
+        FROM food_category
+        WHERE no BETWEEN #{start} AND #{end}
+     </select>
+     <select id="foodCategoryInfoData" resultType="FoodCategoryVO" parameterType="int">
+        SELECT title,subject
         FROM food_category
         WHERE no=#{no}
      </select>
+     <!-- 
+          resultType
+          parameterType
+          ============= 데이터형 설정시에 1개만 설저이 가능 
+          SELECT 컬럼명 , 컬럼명 ==> 2개이상 
+            => resultType : ~VO,Map
+          SELECT 컬럼명 ==> 1개 
+            => 해당 데이터형으로 설정 
+          SELECT no  => resultType="int"
+          SELECT score => resultType="double"
+          SELECT title => resultType="String"
+      -->
 </mapper>
 
 

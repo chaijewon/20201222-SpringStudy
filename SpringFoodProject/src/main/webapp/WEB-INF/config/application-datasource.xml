@@ -15,6 +15,20 @@
        p:maxIdle="10"
        p:maxWait="-1"
     />
+    <!-- 
+           XML 파싱 : SAX
+           Class clsName=Class.forName("org.apache.commons.dbcp.BasicDataSource");
+           Object obj=clsName.newInstance();
+           BasicDataSource ds=(BasicDataSource)obj => HandlerAdapter
+           ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+           ds.setUrl("jdbc:oracle:thin:@localhost:1521:XE")
+           ds.setUsername("hr")
+           ...
+           map.put("id명",ds);  => @Autowired : 저장된 클래스 객체중에 같은 클래스를 대입 
+                                  ============
+                                  instanceof
+                                => 실제 프로그래머가 객체주소 얻는 경우 : getBean(id명) => @Resource(name="id")
+     -->
     <!-- 2. 마이바티스 연결(하버네이트) -->
     <bean id="ssf"
        class="org.mybatis.spring.SqlSessionFactoryBean"

@@ -18,7 +18,6 @@ import com.sist.vo.FoodCategoryVO;
  */
 import java.util.*;
 @Repository
-
 public class FoodCategoryDAO extends SqlSessionDaoSupport{
 
 	@Autowired
@@ -28,11 +27,15 @@ public class FoodCategoryDAO extends SqlSessionDaoSupport{
 	}
 	
 	// 기능만들기 
-	public List<FoodCategoryVO> foodCategoryListData(int no)
+	public List<FoodCategoryVO> foodCategoryListData(Map map)
 	{
-		return getSqlSession().selectList("foodCategoryListData",no);
+		return getSqlSession().selectList("foodCategoryListData",map);
 	}
    
+	public FoodCategoryVO foodCategoryInfoData(int no)
+	{
+		return getSqlSession().selectOne("foodCategoryInfoData", no); 
+	}
 }
 
 
