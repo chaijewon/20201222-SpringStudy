@@ -18,6 +18,7 @@ import com.sist.vo.FoodCategoryVO;
  */
 import java.util.*;
 @Repository
+
 public class FoodCategoryDAO extends SqlSessionDaoSupport{
 
 	@Autowired
