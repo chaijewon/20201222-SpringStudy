@@ -6,11 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.net.URLEncoder;
 // JSP로 요청한 데이터를 보낸다 
 import java.util.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import com.sist.dao.*;
 /*
@@ -130,9 +135,30 @@ public class DataBoardController {
    }
    // 다운로드 : void
    @GetMapping("databoard/download.do")
-   public void databoard_download(String fn)
+   public void databoard_download(String fn,HttpServletResponse response)
    {
-	   
+	   try
+	   {
+		   File file=new File("c:\\spring-upload\\"+fn);
+		   // 파일 정보 얻기 
+		   response.setHeader("Content-Disposition", "attachement;filename="
+				       +URLEncoder.encode(fn, "UTF-8"));
+		   response.setContentLength((int)file.length());
+		   
+		   BufferedInputStream bis=new BufferedInputStream(new FileInputStream(file));
+		   // 서버에서 파일을 읽어 온다
+		   BufferedOutputStream bos=new BufferedOutputStream(response.getOutputStream());
+		   // 다운로드하는 사람에게 파일을 보내준다 
+		   byte[] buffer=new byte[1024];
+		   int i=0;// 읽은 바이트 
+		   while((i=bis.read(buffer, 0, 1024))!=-1) //-1 file end => EOF
+		   {
+			   // 다운로드하는 사람에게 보내라 
+			   bos.write(buffer, 0, i);
+		   }
+		   bis.close();
+		   bos.close();
+	   }catch(Exception ex){}
    }
 }
 

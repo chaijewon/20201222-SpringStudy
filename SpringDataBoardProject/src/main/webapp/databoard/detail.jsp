@@ -46,7 +46,7 @@ h1 {
            <td colspan="3">
              <ul style="list-style-type: none">
                <c:forEach var="f" items="${fn }" varStatus="s">
-                 <li>${f }(${fs[s.index]}Bytes)</li>
+                 <li><a href="download.do?fn=${f }">${f }</a>(${fs[s.index]}Bytes)</li>
                </c:forEach>
              </ul>
            </td>
