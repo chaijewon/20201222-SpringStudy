@@ -12,6 +12,8 @@ package com.sist.dao;
 	FILECOUNT          NUMBER    
  */
 import java.util.*;
+
+import org.springframework.web.multipart.MultipartFile;
 public class DataBoardVO {
     private int no;
     private String name;
@@ -23,6 +25,26 @@ public class DataBoardVO {
     private String filename;
     private String filesize;
     private int filecount;
+    private String dbday; // 날짜를 변환해서 받는다 
+    private List<MultipartFile> files; // 파일업로드시 저장 => 여러개가 넘어온다 
+    /*
+     *    <input type=file name="files[0]">
+     *    <input type=file name="files[1]">
+     *    <input type=file name="files[2]">
+     */
+    
+	public String getDbday() {
+		return dbday;
+	}
+	public void setDbday(String dbday) {
+		this.dbday = dbday;
+	}
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
 	public int getNo() {
 		return no;
 	}

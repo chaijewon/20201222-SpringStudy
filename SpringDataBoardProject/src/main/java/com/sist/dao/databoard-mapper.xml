@@ -15,11 +15,15 @@
 <mapper namespace="com.sist.dao.databoard-mapper">
   <!-- 목록출력  -->
   <select id="databoardListData" resultType="com.sist.dao.DataBoardVO" parameterType="hashmap">
-    SELECT no,subject,name,regdate,hit,num
+    SELECT no,subject,name,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,hit,num
     FROM (SELECT no,subject,name,regdate,hit,rownum as num 
     FROM (SELECT no,subject,name,regdate,hit 
     FROM spring_databoard ORDER BY no DESC))
     WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  <!-- 총페이지 -->
+  <select id="databoardTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*)/10.0) FROM spring_databoard
   </select>
   <!-- 등록  -->
   <insert id="databoardInsert" parameterType="com.sist.dao.DataBoardVO">

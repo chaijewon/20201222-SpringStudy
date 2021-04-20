@@ -20,6 +20,11 @@ public class DataBoardDAO extends SqlSessionDaoSupport{
 	{
 		return getSqlSession().selectList("databoardListData", map);
 	}
+	// 총페이지 구하기
+	public int databoardTotalPage()
+	{
+		return getSqlSession().selectOne("databoardTotalPage");
+	}
 	// 데이터 추가
 	public void databoardInsert(DataBoardVO vo)
 	{
