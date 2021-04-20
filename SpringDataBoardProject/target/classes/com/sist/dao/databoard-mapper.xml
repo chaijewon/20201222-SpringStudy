@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+     SQL문장 
+     1) resultType,parameterType
+     2) Sequence 
+     3) JOIN,SubQuery
+     4) 동적 쿼리 
+     5) 프로시저 사용 
+     ================== XML
+     6) 어노테이션 이용하는 방법
+ -->
+<mapper namespace="com.sist.dao.databoard-mapper">
+  <!-- 목록출력  -->
+  <select id="databoardListData" resultType="com.sist.dao.DataBoardVO" parameterType="hashmap">
+    SELECT no,subject,name,regdate,hit,num
+    FROM (SELECT no,subject,name,regdate,hit,rownum as num 
+    FROM (SELECT no,subject,name,regdate,hit 
+    FROM spring_databoard ORDER BY no DESC))
+    WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  <!-- 등록  -->
+  <insert id="databoardInsert" parameterType="com.sist.dao.DataBoardVO">
+    <!-- Sequence처리 -->
+    <selectKey keyProperty="no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(no)+1,1) as no FROM spring_databoard
+    </selectKey>
+    INSERT INTO spring_databoard VALUES(
+      #{no},
+      #{name},
+      #{subject},
+      #{content},
+      #{pwd},
+      SYSDATE,
+      0,
+      #{filename},
+      #{filesize},
+      #{filecount}
+    )
+  </insert>
+  <!-- 상세보기 -->
+  <update id="databoardHitIncrement" parameterType="int">
+    UPDATE spring_databoard SET
+    hit=hit+1
+    WHERE no=#{no}
+  </update>
+  <select id="databoardDetailData" resultType="com.sist.dao.DataBoardVO" parameterType="int">
+    SELECT * FROM spring_databoard 
+    WHERE no=#{no}
+  </select>
+  <!-- 수정 -->
+  <!-- 삭제 -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

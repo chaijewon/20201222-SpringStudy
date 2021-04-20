@@ -35,6 +35,15 @@ public class MovieController {
 		map.put("start", start);
 		map.put("end", end);
 		List<MovieVO> list=dao.movieListData(map);
+		for(MovieVO vo:list)
+		{
+			String s=vo.getTitle();
+			if(s.length()>18)
+			{
+				s=s.substring(0,16)+"...";
+				vo.setTitle(s);
+			}
+		}
 		int totalpage=dao.movieTotalPage();
 		// 데이터를 JSP로 전송
 		model.addAttribute("list", list);
@@ -55,6 +64,15 @@ public class MovieController {
 		if(title!=null)
 		{
 		  List<MovieVO> list=dao.movieFindData(title);
+		  for(MovieVO vo:list)
+			{
+				String s=vo.getTitle();
+				if(s.length()>18)
+				{
+					s=s.substring(0,16)+"...";
+					vo.setTitle(s);
+				}
+			}
 		  model.addAttribute("list",list);
 		}
 		return "movie/find";

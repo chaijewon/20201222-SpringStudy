@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sist.dao.*;
 
@@ -32,6 +33,7 @@ public class BoardController {
    @GetMapping("board/list.do")
    public String board_list(String page,Model model)
    {
+	   System.out.println("page:"+page);
 	   if(page==null)
 		   page="1"; // default 
 	   int curpage=Integer.parseInt(page);
@@ -64,9 +66,10 @@ public class BoardController {
 	   return "board/insert";
    }
    @PostMapping("board/insert_ok.do")
-   public String board_insert_ok(BoardVO vo)
+   public String board_insert_ok(BoardVO vo,RedirectAttributes rb)
    {
 	   dao.boardInsert(vo);
+	   rb.addAttribute("page", 1);
 	   return "redirect:list.do"; // 목록
    }
    @GetMapping("board/update.do")
@@ -86,6 +89,20 @@ public class BoardController {
 	   model.addAttribute("no", vo.getNo());
 	   model.addAttribute("bCheck", bCheck);
 	   return "board/update_ok";
+   }
+   // delete.do?no=${vo.no }
+   @GetMapping("board/delete.do")
+   public String board_delete(int no,Model model)
+   {
+	   model.addAttribute("no", no);
+	   return "board/delete";
+   }
+   @PostMapping("board/delete_ok.do")
+   public String board_delete_ok(int no,String pwd,Model model)
+   {
+	   boolean bCheck=dao.boardDelete(no, pwd);
+	   model.addAttribute("bCheck", bCheck);
+	   return "board/delete_ok";
    }
 }
 
