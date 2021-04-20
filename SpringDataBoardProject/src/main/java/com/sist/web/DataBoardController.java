@@ -160,6 +160,13 @@ public class DataBoardController {
 		   bos.close();
 	   }catch(Exception ex){}
    }
+   // 삭제창을 보여준다
+   @GetMapping("databoard/delete.do")
+   public String databoard_delete(int no,Model model)
+   {
+	   model.addAttribute("no", no);
+	   return "databoard/delete";
+   }
 }
 
 

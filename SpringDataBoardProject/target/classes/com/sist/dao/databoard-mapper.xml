@@ -56,6 +56,22 @@
   </select>
   <!-- 수정 -->
   <!-- 삭제 -->
+  <!-- 비밀번호 확인 -->
+  <select id="databoardGetPassword" resultType="string" parameterType="int">
+    <!-- String , string -->
+    SELECT pwd FROM spring_databoard
+    WHERE no=#{no}
+  </select>
+  <!-- 파일정보 읽기 -->
+  <select id="databoardFileInfoData" resultType="com.sist.dao.DataBoardVO" parameterType="int">
+    SELECT filename,filecount FROM spring_databoard
+    WHERE no=#{no}
+  </select>
+  <!-- 삭제 -->
+  <delete id="databoardDelete" parameterType="int">
+    DELETE FROM spring_databoard
+    WHERE no=#{no}
+  </delete>
 </mapper>
 
 
