@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <context:component-scan base-package="com.sist.*"/>
+    <bean id="viewResolver"
+      class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+      p:prefix="/"
+      p:suffix=".jsp"
+    />
+    <!-- 
+          스프링 : AOP,Transaction,security, AJAX댓글 ,Tiles (Validation,PathVariable) main/admin/1234
+          마이바티스 :동적쿼리 , 어노테이션 
+      ==> XML파싱 , JSON파싱 
+      
+      Front : AJAX (JSON) , VueJS , ReactJS
+     -->
+</beans>
