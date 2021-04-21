@@ -10,6 +10,14 @@ public class EmpVO {
     private int comm;
     private int sal;
     private int deptno;
+    private DeptVO dvo=new DeptVO(); //JOIN
+    
+	public DeptVO getDvo() {
+		return dvo;
+	}
+	public void setDvo(DeptVO dvo) {
+		this.dvo = dvo;
+	}
 	public int getEmpno() {
 		return empno;
 	}

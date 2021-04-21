@@ -30,6 +30,21 @@ public class EmpDeptController {
 	   model.addAttribute("dList", dList);
 	   return "sawon/list"; //forward
    }
+   @GetMapping("sawon/join.do")
+   public String sawon_join(Model model)
+   {
+	   List<EmpVO> list=service.empdetpJoinData();
+	   model.addAttribute("list", list);
+	   return "sawon/join";
+   }
+   
+   @GetMapping("sawon/subquery.do")
+   public String sawon_subquery(Model model)
+   {
+	   List<EmpVO> list=service.empSubQueryData("SCOTT");
+	   model.addAttribute("list", list);
+	   return "sawon/subquery";
+   }
 }
 
 

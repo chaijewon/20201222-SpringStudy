@@ -20,4 +20,14 @@ public class EmpDeptService {
 	   return dDao.deptListData();
    }
    
+   public List<EmpVO> empdetpJoinData()
+   {
+	   return eDao.empdeptJoinData();
+   }
+   
+   public List<EmpVO> empSubQueryData(String ename)
+   {
+	   return eDao.empSubQueryData(ename);
+   }
+   
 }

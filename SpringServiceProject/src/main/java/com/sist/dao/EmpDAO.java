@@ -19,6 +19,16 @@ public class EmpDAO extends SqlSessionDaoSupport{
 	{
 		return getSqlSession().selectList("empListData");
 	}
+	
+	public List<EmpVO> empdeptJoinData()
+	{
+		return getSqlSession().selectList("empdeptJoinData");
+	}
+	
+	public List<EmpVO> empSubQueryData(String ename)
+	{
+		return getSqlSession().selectList("empSubQueryData",ename);
+	}
 }
 
 
