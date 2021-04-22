@@ -3,5 +3,32 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.food-mapper">
-
+  <select id="categoryListData" resultType="CategoryVO" parameterType="hashmap">
+    SELECT * FROM food_category
+    <if test="no==1">
+     WHERE no BETWEEN 1 AND 12
+    </if>
+    <if test="no==2">
+     WHERE no BETWEEN 13 AND 18
+    </if>
+    <if test="no==3">
+     WHERE no BETWEEN 19 AND 30
+    </if>
+  </select>
+  <select id="categoryFoodListData" resultType="FoodVO" parameterType="int">
+    SELECT no,poster,address,tel,score,title
+    FROM food_house
+    WHERE cno=#{cno}
+  </select>
+  <select id="foodDetailData" resultType="FoodVO" parameterType="int">
+    SELECT * FROM food_house
+    WHERE no=#{no}
+  </select>
 </mapper>
+
+
+
+
+
+
+

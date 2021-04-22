@@ -36,8 +36,8 @@
 	          <li><a href="#">쉐프</a></li>
 	        </ul>
 	      </li>
-	      <li><a href="#">맛집</a></li>
-	      <li><a href="#">뮤직</a></li>
+	      <li><a href="../food/list.do">맛집</a></li>
+	      <li><a href="../music/list.do">뮤직</a></li>
 	    </ul>
 	  </div>
 	</nav>

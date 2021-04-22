@@ -2,6 +2,41 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- 
+      NO           NUMBER(3)     
+	 CNO          NUMBER(1)     
+	 TITLE        VARCHAR2(300) 
+	 SINGER       VARCHAR2(200) 
+	 ALBUM        VARCHAR2(200) 
+	 POSTER       VARCHAR2(260) 
+	 STATE        CHAR(6)       
+	 IDCREMENT    NUMBER(3) 
+  -->
 <mapper namespace="com.sist.mapper.music-mapper">
-
+  <select id="musicListData" resultType="MusicVO" parameterType="hashmap">
+    SELECT no,title,singer,album,poster,state,idcrement,num
+    FROM (SELECT no,title,singer,album,poster,state,idcrement,rownum as num 
+    FROM (SELECT no,title,singer,album,poster,state,idcrement 
+    FROM genie_music ORDER BY no ASC))
+    WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  <!-- 총페이지 -->
+  <select id="musicTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*)/50.0) FROM genie_music
+  </select>
+  
+  <!-- <select id="" resultType="" parameterType="">
+    SELECT * FROM emp
+    WHERE sal&lt;2000
+  </select> -->
 </mapper>
+
+
+
+
+
+
+
+
+
+
