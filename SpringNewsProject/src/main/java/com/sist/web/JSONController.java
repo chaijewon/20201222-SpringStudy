@@ -1,5 +1,5 @@
 package com.sist.web;
-
+// http://www.weather.go.kr/weather/forecast/mid-term-xml.jsp
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
