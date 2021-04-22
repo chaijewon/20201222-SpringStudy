@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.movie-mapper">
+  <!-- 
+        PreparedStatement , ResulSet : 결과값이 오라클로부터 얻어 오면 어떤 데이터로 받을 것인지 설정 
+        =================
+          => SQL문장을 전송 , 오라클값을 가지고 온다 
+          
+          => 1) SQL문장을 실행하기 전에 ?에 값이 있는 경우에 값을 채운다  : parameterType
+             2) ResultSet에 있는 데이터를 어디 채울것인지 설정 : resultType
+             ***** 설정하는 데이터형이 한개만 설정이 가능 
+                   = 컬럼이 한개일 경우 : 일반데이터형 
+                   SELECT pwd FROM member  ===> String
+                          ===
+                   SELECT COUNT(*) FROM goods ==> int
+                          ========
+                   = 컬럼이 여러개 일 경우 : HashMap,~VO
+                   SELECT no,title,poster FROM movie
+                                        기본은 VO로 받는다 (예외:VO에 없는 변수가 있는 경우 => HashMap받는다) => 스칼라 서브쿼리 
+                ========================== resultType
+                   = ?가 한개일 경우 : 일반 데이터 
+                     WHERE no=?  ===> int
+                     WHERE id=?  ===> String
+                   = ?가 여러개일 경우
+                     WHERE num BETWEEN ? AND ? ==> Map
+                     WHERE id=? AND pwd=? ==> VO
+                ========================== parameterType
+   -->
+  <select id="movieListData" resultType="MovieVO" parameterType="hashmap">
+    SELECT mno,poster,title,num
+    FROM (SELECT mno,poster,title,rownum as num 
+    FROM (SELECT mno,poster,title 
+    FROM daum_movie WHERE cno=#{cno} ORDER BY mno DESC))
+    WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  <select id="movieTotalPage" resultType="int" parameterType="int">
+    SELECT CEIL(COUNT(*)/12.0) FROM daum_movie
+    WHERE cno=#{cno}
+  </select>
+  <!-- 상세보기 -->
+  <select id="movieDetailData" resultType="MovieVO" parameterType="int">
+    SELECT * FROM daum_movie
+    WHERE mno=#{mno}
+  </select>
+</mapper>
+
+
+
+
+
+
+

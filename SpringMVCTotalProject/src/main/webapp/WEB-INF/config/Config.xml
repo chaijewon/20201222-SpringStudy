@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+    <typeAlias type="com.sist.vo.MovieVO" alias="MovieVO"/>
+    <typeAlias type="com.sist.vo.MusicVO" alias="MusicVO"/>
+    <typeAlias type="com.sist.vo.FoodVO" alias="FoodVO"/>
+    <typeAlias type="com.sist.vo.CategoryVO" alias="CategoryVO"/>
+    <typeAlias type="com.sist.vo.RecipeVO" alias="RecipeVO"/>
+    <typeAlias type="com.sist.vo.ChefVO" alias="ChefVO"/>
+    <typeAlias type="com.sist.vo.RecipeDetailVO" alias="RecipeDetailVO"/>
+  </typeAliases>
+  <mappers>
+    <mapper resource="com/sist/mapper/movie-mapper.xml"/>
+    <mapper resource="com/sist/mapper/music-mapper.xml"/>
+    <mapper resource="com/sist/mapper/food-mapper.xml"/>
+    <mapper resource="com/sist/mapper/recipe-mapper.xml"/>
+    <mapper resource="com/sist/mapper/chef-mapper.xml"/>
+  </mappers>
+</configuration>
