@@ -31,8 +31,8 @@
   <select id="movieListData" resultType="MovieVO" parameterType="hashmap">
     SELECT mno,poster,title,num
     FROM (SELECT mno,poster,title,rownum as num 
-    FROM (SELECT mno,poster,title 
-    FROM daum_movie WHERE cno=#{cno} ORDER BY mno DESC))
+    FROM (SELECT /*+INDEX_DESC(daum_movie,dm_mno_pk ) */ mno,poster,title 
+    FROM daum_movie WHERE cno=#{cno}))
     WHERE num BETWEEN #{start} AND #{end}
   </select>
   <select id="movieTotalPage" resultType="int" parameterType="int">

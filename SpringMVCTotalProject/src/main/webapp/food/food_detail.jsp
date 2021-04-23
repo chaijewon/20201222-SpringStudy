@@ -24,7 +24,7 @@ h1 {
       <tr>
         <c:forTokens items="${vo.poster }" delims="^" var="poster">
           <td>
-           <img src="${poster }" width=100%>
+           <img src="${poster }" width=700 height="150">
           </td>
         </c:forTokens>
       </tr>
