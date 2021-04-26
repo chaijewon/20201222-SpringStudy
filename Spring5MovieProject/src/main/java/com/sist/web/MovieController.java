@@ -38,6 +38,7 @@ public class MovieController {
 	@GetMapping("movie/detail.do")
 	public String movie_detail(int mno,Model model)
 	{
+		System.out.println("mno="+mno);
 		MovieVO vo=dao.movieDetailData(mno);
 		model.addAttribute("vo", vo);
 		return "movie/detail";

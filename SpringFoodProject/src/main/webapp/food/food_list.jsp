@@ -29,17 +29,6 @@ h1 {
         <tr>
           <td width=30% rowspan="3" class="text-center">
             <a href="food_detail.do?no=${vo.no }"><img src="${vo.poster }" style="width:100%;height:180px"></a>
-            <%--
-                 food_detail.do?no=10
-                 
-                 => @RequestMapping("food_detail.do")
-                    public String food_detail(int no,Model model)
-                    
-                    public String food_detail(@RequestParam("no") int no,Model model)
-                                             ===================== 생략이 가능  => 
-                 => @GetMapping("food_detail.do")  ==> 4.3이상 
-                    public String food_detail(int no,Model model)
-             --%>
           </td>
           <td width=70%>
            <h3><a href="food_detail.do?no=${vo.no }">${vo.title }</a>&nbsp;<span style="color:orange">${vo.score }</span></h3>

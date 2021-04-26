@@ -6,6 +6,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $('.images').click(function(){
+    	let mno=$(this).attr("value");
+    	//alert(mno);
+    	$.ajax({
+    		type:'get',
+    		url:'detail.do',
+    		data:{"mno":mno},
+    		success:function(result)
+    		{
+    			$('#dialog').html(result);
+    			$('#dialog').dialog({
+    	    		autoOpen:true,
+    	    		width:1300,
+    	    		height:1000,
+    	    		modal:true
+    	    	})
+    	    	$('#dialog').show()
+    		}
+    	})
+    	
+    })
+  } );
+  </script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style type="text/css">
 .row{
@@ -33,12 +62,10 @@ h1 {
       <c:forEach var="vo" items="${list }">
         <div class="col-md-3">
 	    <div class="thumbnail">
-	      <a href="detail.do?mno=${vo.mno }">
-	        <img src="${vo.poster }" style="width:100%">
+	        <img src="${vo.poster }" style="width:100%" class="images" value="${vo.mno }">
 	        <div class="caption">
 	          <p>${vo.title }</p>
 	        </div>
-	      </a>
 	    </div>
 	  </div>
       </c:forEach>
@@ -49,6 +76,9 @@ h1 {
          ${curpage } page / ${totalpage } pages
        <a href="list.do?page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-sm btn-primary">다음</a>
       </div>
+    </div>
+    <div id="dialog" title="영화상세" style="display:none">
+     
     </div>
   </div>
 </body>
