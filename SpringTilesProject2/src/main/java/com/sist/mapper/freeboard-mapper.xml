@@ -13,4 +13,49 @@
   <select id="freeboardTotalPage" resultType="int">
     SELECT CEIL(COUNT(*)/10.0) FROM spring_freeboard
   </select>
+  <!-- 데이터 추가 -->
+  <insert id="freeboardInsert" parameterType="com.sist.vo.FreeBoardVO">
+    <selectKey keyProperty="no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(no)+1,1) as no FROM spring_freeboard
+    </selectKey>
+    INSERT INTO spring_freeboard(no,name,subject,content,pwd) VALUES(
+       #{no},#{name},#{subject},#{content},#{pwd})
+  </insert>
+  <!-- 상세보기  -->
+  <!-- 조회수 증가 -->
+  <update id="freeboardHitIncrement" parameterType="int">
+    UPDATE spring_freeboard SET
+    hit=hit+1
+    WHERE no=#{no}
+  </update>  
+  <select id="freeboardDetailData" resultType="com.sist.vo.FreeBoardVO" parameterType="int">
+    SELECT no,name,subject,content,redate as regdate,hit FROM spring_freeboard
+    WHERE no=#{no}
+  </select>
+  <!-- 수정하기 -->
+  <!-- 비밀번호 체크 -->
+  <select id="freeboardGetPassword" resultType="string" parameterType="int">
+    SELECT pwd FROM spring_freeboard
+    WHERE no=#{no}
+  </select>
+  <!-- 실제 수정 -->
+  <!-- parameterMap : Procedure (매개변수 설정) -->
+  <update id="freeboardUpdate" parameterType="com.sist.vo.FreeBoardVO">
+    UPDATE spring_freeboard SET
+    name=#{name},
+    subject=#{subject},
+    content=#{content}
+    WHERE no=#{no}
+  </update>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+

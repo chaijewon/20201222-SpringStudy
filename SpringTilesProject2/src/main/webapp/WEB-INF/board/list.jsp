@@ -24,7 +24,7 @@
         </td>
       </tr>
     </table>
-    <div style="height: 500px">
+    <div style="height: 450px">
 	    <table class="table">
 	      <tr>
 	        <th class="text-center" width="10%">번호</th>
@@ -36,7 +36,15 @@
 	      <c:forEach var="vo" items="${list }">
 	        <tr>
 		        <td class="text-center" width="10%">${vo.no }</td>
-		        <td class="text-left" width="45%">${vo.subject }</td>
+		        <td class="text-left" width="45%">
+		        <a href="../board/detail.do?no=${vo.no }&page=${curpage}">${vo.subject }</a>
+		        <c:if test="${today==vo.dbday }">
+			        &nbsp;
+			        <sup style="color:red">
+			         new
+			        </sup>
+		        </c:if>
+		        </td>
 		        <td class="text-center" width="15%">${vo.name }</td>
 		        <td class="text-center" width="20%">${vo.dbday }</td>
 		        <td class="text-center" width="10%">${vo.hit }</td>
