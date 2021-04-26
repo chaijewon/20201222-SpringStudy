@@ -9,4 +9,10 @@
     <put-attribute name="footer" value="/WEB-INF/main/footer.jsp"/>
     <put-attribute name="copy" value="/WEB-INF/main/copy.jsp"/>
   </definition>
+  <!-- 
+      board/list
+   -->
+  <definition name="*/*" extends="main">
+    <put-attribute name="content" value="/WEB-INF/{1}/{2}.jsp"/>
+  </definition>
 </tiles-definitions>

@@ -30,7 +30,7 @@
       </li>
       <li><a class="drop" href="#">커뮤니티</a>
         <ul>
-          <li><a href="#">자유게시판</a></li>
+          <li><a href="../board/list.do">자유게시판</a></li>
           <li><a class="drop" href="#">커뮤니티</a>
             <ul>
               <li><a href="#">묻고답하기</a></li>
