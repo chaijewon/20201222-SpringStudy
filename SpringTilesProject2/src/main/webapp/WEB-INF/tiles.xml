@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  배치 -->
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+  <definition name="main" template="/WEB-INF/main/main.jsp">
+    <put-attribute name="header" value="/WEB-INF/main/header.jsp"/>
+    <put-attribute name="nav" value="/WEB-INF/main/nav.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/main/content.jsp"/><!-- 변경되는 영역 -->
+    <put-attribute name="footer" value="/WEB-INF/main/footer.jsp"/>
+    <put-attribute name="copy" value="/WEB-INF/main/copy.jsp"/>
+  </definition>
+</tiles-definitions>

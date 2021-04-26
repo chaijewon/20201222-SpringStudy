@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <context:component-scan base-package="com.sist.*"/>
+    <!-- ViewResolver -->
+    <!-- Tiles 설정 -->
+    <bean id="tilesConfigurer"
+      class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
+      p:definitions="/WEB-INF/tiles.xml"
+    />
+    <!-- 
+        p:order : 우선순위는 0부터 
+     -->
+    <bean id="tilesViewResolver"
+      class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+      p:viewClass="org.springframework.web.servlet.view.tiles3.TilesView"
+      p:order="0"
+    />
+    <!-- ajax,vuejs -->
+    <bean id="viewResolver"
+      class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+      p:prefix="/"
+      p:suffix=".jsp"
+      p:order="1"
+    />
+</beans>
