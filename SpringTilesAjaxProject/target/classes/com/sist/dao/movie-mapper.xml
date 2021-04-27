@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.dao.movie-mapper">
+<!-- <sql>은 sql문장이 중복이 있는 경우에 sql을 모아서 include시킨다 (중복제거)  -->
+ <sql id="inline-sql">
+  SELECT mno,poster,title,num
+  FROM (SELECT mno,poster,title,rownum as num 
+  FROM (SELECT mno,poster,title 
+  FROM daum_movie 
+ </sql>
+ <select id="movieAllData" resultType="com.sist.dao.MovieVO" parameterType="hashmap">
+  <include refid="inline-sql"/> ORDER BY mno ASC))
+  WHERE num BETWEEN #{start} AND #{end}
+ </select>
+ <select id="movieAllTotalPage" resultType="int">
+   SELECT CEIL(COUNT(*)/12.0) FROM daum_movie
+ </select>
+ <select id="movieFindData" resultType="com.sist.dao.MovieVO" parameterType="hashmap">
+  <include refid="inline-sql"/> WHERE title LIKE '%'||#{keyword}||'%' ORDER BY mno ASC))
+  WHERE num BETWEEN #{start} AND #{end}
+ </select>
+ <select id="movieFindTotalPage" resultType="int" parameterType="string">
+   SELECT CEIL(COUNT(*)/12.0) FROM daum_movie
+   WHERE title LIKE '%'||#{keyword}||'%'
+ </select>
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+    <aop:aspectj-autoproxy/><!-- AOP적용 : 사용자가 요청한 메소드명 , 동작 시간  -->
+    <context:component-scan base-package="com.sist.*"/>
+    <!-- Tiles -->
+    <bean id="tilesConfigurer"
+      class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
+      p:definitions="/WEB-INF/tiles.xml"
+    />
+    <!-- 
+        p:order : 우선순위는 0부터 
+        ajax , vueJS => include가 아니라 단독으로 실행 => 결과값만 읽어 온다 
+        ajax/board/reply
+        
+        Java , Oracle (DML:Select(JOIN,SUBQUERY),INSERT,UPDATE,DELETE)
+               DDL (table:제약조건) => View(inline)
+        HTML,CSS(수정하는 정도),JavaSCript(Jquery) 
+        JSP : JSTL,EL , 내장객체 
+        Spring : Container , DI , MVC (include , tiles) => 흐름 , AOP 
+     -->
+    <bean id="tilesViewResolver"
+      class="org.springframework.web.servlet.view.UrlBasedViewResolver"
+      p:viewClass="org.springframework.web.servlet.view.tiles3.TilesView"
+      p:order="0"
+    />
+    <!-- ajax,vuejs -->
+    <bean id="viewResolver"
+      class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+      p:prefix="/"
+      p:suffix=".jsp"
+      p:order="1"
+    />
+    <mvc:annotation-driven>
+	    <mvc:message-converters>
+	        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	            <property name="supportedMediaTypes">
+	                <list>
+	                    <value>text/html;charset=UTF-8</value>
+	                </list>
+	            </property>
+	        </bean>
+	    </mvc:message-converters>
+   </mvc:annotation-driven>
+    <!-- ViewResolver -->
+</beans>
