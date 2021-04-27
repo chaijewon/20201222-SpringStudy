@@ -2,6 +2,7 @@
 <!--  배치 -->
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+  <!-- 템플릿 : 여러개의 JSP 조립 -->
   <definition name="main" template="/WEB-INF/main/main.jsp">
     <put-attribute name="header" value="/WEB-INF/main/header.jsp"/>
     <put-attribute name="nav" value="/WEB-INF/main/nav.jsp"/>

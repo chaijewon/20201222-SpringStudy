@@ -47,6 +47,27 @@
     content=#{content}
     WHERE no=#{no}
   </update>
+  
+  <select id="freeboardFindData" resultType="com.sist.vo.FreeBoardVO" parameterType="com.sist.web.FindVO">
+    SELECT no,subject,name,redate as regdate,hit
+    FROM spring_freeboard
+    WHERE
+    <trim prefix="(" suffix=") " prefixOverrides="OR">
+     <foreach collection="typeArr" item="type">
+       <trim prefix="OR">
+          <if test="type=='N'.toString()">
+            name LIKE '%'||#{ss}||'%' 
+          </if>
+          <if test="type=='S'.toString()">
+            subject LIKE '%'||#{ss}||'%'
+          </if>
+          <if test="type=='C'.toString()">
+            content LIKE '%'||#{ss}||'%'
+          </if>
+       </trim>
+     </foreach>
+    </trim>
+  </select>
 </mapper>
 
 

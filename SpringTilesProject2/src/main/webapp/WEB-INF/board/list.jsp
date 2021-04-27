@@ -68,13 +68,20 @@
    <table class="table">
      <tr>
        <td>
-         <ul class="inline">
-          <input type="checkbox" value="name" name="fs" class="input-sm">이름
-          <input type="checkbox" value="subject" name="fs" class="input-sm">제목
-          <input type="checkbox" value="content" name="fs" class="input-sm">내용
-          <input type=text name="ss" size=15 class="input-sm">
-          <input type=submit value="검색" class="btn btn-sm btn-primary">
-         </ul>
+         <form method="post" action="../board/find.do">
+	         <ul class="inline">
+	          <select name="type" class="input-sm">
+	           <option value="N">이름</option>
+	           <option value="S">제목</option>
+	           <option value="C">내용</option>
+	           <option value="SC">제목+내용</option>
+	           <option value="SN">제목+이름</option>
+	           <option value="SCN">제목+내용+이름</option>
+	          </select>
+	          <input type=text name="ss" size=15 class="input-sm">
+	          <input type=submit value="검색" class="btn btn-sm btn-primary">
+	         </ul>
+         </form>
        </td>
      </tr>
    </table>

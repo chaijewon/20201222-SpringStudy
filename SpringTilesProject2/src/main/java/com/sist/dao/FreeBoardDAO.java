@@ -5,6 +5,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.sist.vo.FreeBoardVO;
+import com.sist.web.FindVO;
 
 import java.util.*;
 
@@ -94,6 +95,18 @@ public class FreeBoardDAO extends SqlSessionDaoSupport{
     	getSqlSession().insert("freeboardInsert",vo);
     }
     // 찾기 => 마이바티스의 동적 SQL 
+    
+    /*
+     *   <select id="freeboardFindData" resultType="com.sist.vo.FreeBoardVO" parameterType="hashmap">
+     */
+    public List<FreeBoardVO> freeboardFindData(FindVO vo)
+    {
+    	for(String s:vo.getTypeArr())
+    	{
+    		System.out.println(s);
+    	}
+    	return getSqlSession().selectList("freeboardFindData",vo);
+    }
 }
 
 

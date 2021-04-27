@@ -104,7 +104,16 @@ public class FreeBoardController {
 	   return "board/update";
    }
    
-   
+   @PostMapping("board/find.do")
+   public String board_find(String type,String ss,Model model)
+   {
+	   FindVO vo=new FindVO();
+	   vo.setType(type);
+	   vo.setSs(ss);
+	   List<FreeBoardVO> fList=fDao.freeboardFindData(vo);
+	   model.addAttribute("fList", fList);
+	   return "board/find";
+   }
 }
 
 

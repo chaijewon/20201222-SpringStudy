@@ -16,6 +16,14 @@
     />
     <!-- 
         p:order : 우선순위는 0부터 
+        ajax , vueJS => include가 아니라 단독으로 실행 => 결과값만 읽어 온다 
+        ajax/board/reply
+        
+        Java , Oracle (DML:Select(JOIN,SUBQUERY),INSERT,UPDATE,DELETE)
+               DDL (table:제약조건) => View(inline)
+        HTML,CSS(수정하는 정도),JavaSCript(Jquery) 
+        JSP : JSTL,EL , 내장객체 
+        Spring : Container , DI , MVC (include , tiles) => 흐름 , AOP 
      -->
     <bean id="tilesViewResolver"
       class="org.springframework.web.servlet.view.UrlBasedViewResolver"
