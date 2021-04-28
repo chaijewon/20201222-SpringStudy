@@ -47,6 +47,14 @@ public class BoardService {
    {
 	   return bDao.boardDetailData(no);
    }
+   public List<BoardVO> boardFindData(Map map)
+   {
+	   return bDao.boardFindData(map);
+   }
+   public int boardFindDataCount(Map map)
+   {
+	   return bDao.boardFindDataCount(map);
+   }
 }
 
 

@@ -56,9 +56,13 @@ h1 {
           <form method=post action="find.do">
 	           Search:
 	           <select name="fs" class="input-sm">
-	            <option value="name">이름</option>
-	            <option value="subject">제목</option>
-	            <option value="content">내용</option>
+	            <option value="N">이름</option>
+	            <option value="S">제목</option>
+	            <option value="C">내용</option>
+	            <option value="NS">이름+제목</option>
+	            <option value="NC">이름+내용</option>
+	            <option value="SC">제목+내용</option>
+	            <option value="NSC">이름+제목+내용</option>
 	           </select>
 	           <input type="text" name=ss size=15 class="input-sm">
 	           <button class="btn btn-sm btn-primary">검색</button>

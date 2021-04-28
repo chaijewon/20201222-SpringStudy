@@ -71,6 +71,43 @@ public class BoardDAO extends SqlSessionDaoSupport{
     	 getSqlSession().update("boardHitIncrement",no);
     	 return getSqlSession().selectOne("boardDetailData", no);
      }
+     /*
+      *   <select id="boardFindData" resultType="BoardVO" parameterType="hashmap">
+		   SELECT no,subject,name,redate as regdate,hit 
+		   FROM spring_freeboard
+		   <!-- 
+		         fs=="name"
+		         문자열 :
+		            ==
+		            equals
+		    -->
+		   <if test='fs.equals("name")'>
+		     WHERE name LIKE '%'||#{ss}||'%'
+		   </if>
+		   <if test='fs.equals("subject")'>
+		     WHERE subject LIKE '%'||#{ss}||'%'
+		   </if>
+		   <if test='fs.equals("content")'>
+		     WHERE content LIKE '%'||#{ss}||'%'
+		   </if>
+		  </select>
+      */
+     public List<BoardVO> boardFindData(Map map)
+     {
+    	 List<BoardVO> list=null;
+    	 try
+    	 {
+    		list=getSqlSession().selectList("boardFindData",map);
+    	 }catch(Exception ex)
+    	 {
+    		 ex.printStackTrace();
+    	 }
+    	 return list;
+     }
+     public int boardFindDataCount(Map map)
+     {
+    	 return getSqlSession().selectOne("boardFindDataCount",map);
+     }
 }
 
 

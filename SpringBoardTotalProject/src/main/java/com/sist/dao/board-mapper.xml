@@ -43,8 +43,108 @@
    WHERE no=#{no}
   </update>
   <select id="boardDetailData" resultType="BoardVO" parameterType="int">
-   SELECT * FROM spring_freeboard
+   SELECT no,name,subject,content,redate as regdate,hit FROM spring_freeboard
    WHERE no=#{no}
+  </select>
+  <!-- 찾기 -->
+  <sql id="dsql">
+   <trim prefix="(" suffix=")" prefixOverrides="OR">
+     <foreach collection="fsArr" item="fs">
+       <trim prefix="OR">
+        <choose>
+          <when test="fs=='N'.toString()">
+            name LIKE '%'||#{ss}||'%'
+          </when>
+          <when test="fs=='S'.toString()">
+            subject LIKE '%'||#{ss}||'%'
+          </when>
+          <when test="fs=='C'.toString()">
+            content LIKE '%'||#{ss}||'%'
+          </when>
+        </choose>
+       </trim>
+     </foreach>
+   </trim>
+  </sql>
+  <select id="boardFindData" resultType="BoardVO" parameterType="hashmap">
+   <bind name="pattern" value="'%'+ss+'%'"/>
+   SELECT no,subject,name,redate as regdate,hit 
+   FROM spring_freeboard
+   WHERE
+   <!-- WHERE ${fs} LIKE #{pattern}-->
+   <!-- 
+         fs=="name"
+         문자열 :
+            ==
+            equals
+    -->
+   <!-- <if test='fs.equals("name")'>
+     WHERE name LIKE '%'||#{ss}||'%'
+   </if>
+   <if test='fs.equals("subject")'>
+     WHERE subject LIKE '%'||#{ss}||'%'
+   </if>
+   <if test='fs.equals("content")'>
+     WHERE content LIKE '%'||#{ss}||'%'
+   </if> -->
+   <!-- <choose>
+    <when test='fs=="name"'>
+     WHERE name LIKE #{pattern}
+    </when>
+    <when test='fs=="subject"'>
+     WHERE subject LIKE #{pattern}
+    </when>
+    <when test='fs=="content"'>
+     WHERE content LIKE #{pattern}
+    </when>
+   </choose> -->
+   <!-- 
+         SC
+         OR (name LIKE '%'||#{ss}||'%') OR (content LIKE '%'||#{ss}||'%')
+         
+         S 
+         
+         N
+         (name LIKE '%'||#{ss}||'%')
+         NS
+         (name LIKE '%'||#{ss}||'%') OR (subject LIKE '%'||#{ss}||'%')
+         NSC
+         (name LIKE '%'||#{ss}||'%') OR (subject LIKE '%'||#{ss}||'%') OR(content LIKE '%'||#{ss}||'%')
+    -->
+   <include refid="dsql"/>
+  </select>
+  <select id="boardFindDataCount" resultType="int" parameterType="hashmap">
+   SELECT COUNT(*)
+   FROM spring_freeboard
+   WHERE
+   <!-- WHERE ${fs} LIKE '%'||#{ss}||'%'-->
+   <!-- 
+         fs=="name"
+         문자열 :
+            ==
+            equals
+    -->
+   <!-- <if test='fs.equals("name")'>
+     WHERE name LIKE '%'||#{ss}||'%'
+   </if>
+   <if test='fs.equals("subject")'>
+     WHERE subject LIKE '%'||#{ss}||'%'
+   </if>
+   <if test='fs.equals("content")'>
+     WHERE content LIKE '%'||#{ss}||'%'
+   </if> -->
+   <!-- <choose>
+    <when test='fs=="name"'>
+     WHERE name LIKE '%'||#{ss}||'%'
+    </when>
+    <when test='fs=="subject"'>
+     WHERE subject LIKE '%'||#{ss}||'%'
+    </when>
+    <when test='fs=="content"'>
+     WHERE content LIKE '%'||#{ss}||'%'
+    </when>
+   </choose> -->
+   <include refid="dsql"/>
   </select>
 </mapper>
 

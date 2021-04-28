@@ -58,6 +58,22 @@ public class BoardController {
 	   model.addAttribute("page", page);
 	   return "board/detail";
    }
+   @PostMapping("board/find.do")
+   public String board_find(String fs,String ss,Model model)
+   {
+	   FindVO vo=new FindVO();
+	   vo.setFs(fs);
+	   vo.setSs(ss);
+	   Map map=new HashMap();
+	   map.put("fs",fs);
+	   map.put("ss", ss);
+	   map.put("fsArr", vo.getFsArr());
+	   List<BoardVO> list=service.boardFindData(map);
+	   int count=service.boardFindDataCount(map);
+	   model.addAttribute("list", list);
+	   model.addAttribute("count", count);
+	   return "board/find";
+   }
 }
 
 
