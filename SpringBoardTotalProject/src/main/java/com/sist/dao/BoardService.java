@@ -39,6 +39,14 @@ public class BoardService {
    {
 	   return bDao.boardTotalPage();
    }
+   public void boardInsert(BoardVO vo)
+   {
+	   bDao.boardInsert(vo);
+   }
+   public BoardVO boardDetailData(int no)
+   {
+	   return bDao.boardDetailData(no);
+   }
 }
 
 

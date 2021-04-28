@@ -34,6 +34,43 @@ public class BoardDAO extends SqlSessionDaoSupport{
      {
     	 return getSqlSession().selectOne("boardTotalPage");
      }
+     /*
+      *   <insert id="boardInsert" parameterType="BoardVO">
+		    <selectKey keyProperty="no" resultType="int" order="BEFORE">
+		     SELECT NVL(MAX(no)+1,1) as no FROM spring_freeboard
+		    </selectKey>
+		    INSERT INTO spring_freeboard VALUES(
+		      #{no},
+		      #{name},
+		      #{subject},
+		      #{content},
+		      #{pwd},
+		      SYSDATE,
+		      0
+		    )
+		  </insert>
+      */
+     public void boardInsert(BoardVO vo)
+     {
+    	 getSqlSession().insert("boardInsert", vo);
+     }
+     /*
+      *   <!-- 상세보기 -->
+		  <update id="boardHitIncrement" parameterType="int">
+		   UPDATE spring_freeboard SET
+		   hit=hit+1
+		   WHERE no=#{no}
+		  </update>
+		  <select id="boardDetailData" resultType="BoardVO" parameterType="int">
+		   SELECT * FROM spring_freeboard
+		   WHERE no=#{no}
+		  </select>
+      */
+     public BoardVO boardDetailData(int no)
+     {
+    	 getSqlSession().update("boardHitIncrement",no);
+    	 return getSqlSession().selectOne("boardDetailData", no);
+     }
 }
 
 
