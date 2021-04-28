@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+    <!-- properties파일 읽기  -->
+    <util:properties id="db" location="/WEB-INF/config/db.properties"/>
+    <!-- 오라클 정보 모우기 : DataSource -->
+    <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
+      p:driverClassName="#{db['driver']}"
+      p:url="#{db['url']}"
+      p:username="#{db['username']}"
+      p:password="#{db['password']}"
+    />
+    <!-- Transaction선언 -->
+    <tx:annotation-driven/>
+    <!-- Transaction적용-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+      p:dataSource-ref="ds"
+    />
+    <!-- 마이바티스 설정 : SqlSessionFactory -->
+    <bean id="ssf"
+      class="org.mybatis.spring.SqlSessionFactoryBean"
+      p:dataSource-ref="ds"
+      p:configLocation="/WEB-INF/config/Config.xml"
+    />
+    <!-- <bean id="sst"
+      class="org.mybatis.spring.SqlSessionTemplate">
+       <constructor-arg ref="ssf"/>  
+    </bean> -->
+</beans>
+
+
+
+
+
+
+
+
+

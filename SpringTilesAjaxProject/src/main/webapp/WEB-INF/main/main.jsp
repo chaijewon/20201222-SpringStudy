@@ -196,14 +196,13 @@
   <script type="text/javascript">
   $(function(){
 	  $.ajax({
-	    type:'get',
-	    url:'../movie/movie_list.do',
-	    success:function(result)
-	    {
-	    	
-	    	$('#movie').html(result);
-	    }
-	  });
+		  type:'get',
+		  url:'../movie/movie_list.do',
+		  success:function(result)
+		  {
+			  $('#movie').html(result);
+		  }
+	  })
 	  
 	  $('#findBtn').click(function(){
 		  let fd=$('#finddata').val();
@@ -213,15 +212,25 @@
 			  return;
 		  }
 		  $.ajax({
-			    type:'get',
-			    url:'../movie/movie_list.do',
-			    data:{"fd":fd},
-			    success:function(result)
-			    {
-			    	alert(result);
-			    	$('#movie').html(result);
-			    }
-		  });
+			  type:'get',
+			  url:'../movie/movie_list.do',
+			  data:{"fd":fd},
+			  success:function(result)
+			  {
+				  $('#movie').html(result);
+			  }
+		  })
+	  })
+	  
+	  $('#totalBtn').click(function(){
+		  $.ajax({
+			  type:'get',
+			  url:'../movie/movie_list.do',
+			  success:function(result)
+			  {
+				  $('#movie').html(result);
+			  }
+		  })
 	  })
   })
   </script>

@@ -16,7 +16,7 @@
    SELECT CEIL(COUNT(*)/12.0) FROM daum_movie
  </select>
  <select id="movieFindData" resultType="com.sist.dao.MovieVO" parameterType="hashmap">
-  <include refid="inline-sql"/> WHERE title LIKE '%'||#{keyword}||'%' ORDER BY mno ASC))
+  <include refid="inline-sql"/> WHERE title LIKE '%'||#{keyword}||'%' ORDER BY mno ASC ))
   WHERE num BETWEEN #{start} AND #{end}
  </select>
  <select id="movieFindTotalPage" resultType="int" parameterType="string">

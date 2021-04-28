@@ -101,11 +101,21 @@ public class FreeBoardDAO extends SqlSessionDaoSupport{
      */
     public List<FreeBoardVO> freeboardFindData(FindVO vo)
     {
-    	for(String s:vo.getTypeArr())
+    	List<FreeBoardVO> list=null;
+    	try
     	{
-    		System.out.println(s);
+	    	Map map=new HashMap();
+	    	map.put("type", vo.getType());
+	    	map.put("ss", vo.getSs());
+	    	System.out.println("type="+map.get("type"));
+	    	System.out.println("ss="+map.get("ss"));
+	    	map.put("typeArr", vo.getTypeArr());
+	    	list=getSqlSession().selectList("freeboardFindData",map);
+    	}catch(Exception ex)
+    	{
+    		ex.printStackTrace();
     	}
-    	return getSqlSession().selectList("freeboardFindData",vo);
+    	return list;
     }
 }
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.dao.member-mapper">
+  <!-- 로그인 : HttpSession -->
+  <!-- ID존재여부 -->
+  <select id="memberIdCount" resultType="int" parameterType="string">
+    SELECT COUNT(*) FROM webmember
+    WHERE id=#{id}
+  </select>
+  <!-- 비밀번호 확인 -->
+  <select id="memberGetPassword" resultType="com.sist.dao.MemberVO" parameterType="string">
+    SELECT pwd,name FROM webmember
+    WHERE id=#{id}
+  </select>
+  <!-- Reply : Transaction -->
+  <!-- AOP사용법 : log -->
+  <!-- MyBatis 동적 쿼리 
+       1) if
+       2) choose ~ when
+       3) trim
+       4) foreach  => IN()
+       5) bind 
+       6) 어노테이션 => 동적쿼리 : script , JOIN (교재)
+  -->
+</mapper>

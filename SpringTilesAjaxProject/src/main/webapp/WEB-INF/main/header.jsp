@@ -37,6 +37,7 @@
       <input type="text" class="form-control" id="finddata" size="50" placeholder="영화 검색" required>
       <div class="input-group-btn">
         <button type="button" class="btn btn-danger" id="findBtn">검색</button>
+        <button type="button" class="btn btn-danger" id="totalBtn">전체</button>
       </div>
     </div>
   </form>

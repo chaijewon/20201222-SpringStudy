@@ -48,25 +48,53 @@
     WHERE no=#{no}
   </update>
   
-  <select id="freeboardFindData" resultType="com.sist.vo.FreeBoardVO" parameterType="com.sist.web.FindVO">
+  <select id="freeboardFindData" resultType="com.sist.vo.FreeBoardVO" parameterType="hashmap">
+    <bind name="pattern" value="'%' + ss + '%'"/>
     SELECT no,subject,name,redate as regdate,hit
     FROM spring_freeboard
     WHERE
-    <trim prefix="(" suffix=") " prefixOverrides="OR">
-     <foreach collection="typeArr" item="type">
-       <trim prefix="OR">
-          <if test="type=='N'.toString()">
-            name LIKE '%'||#{ss}||'%' 
-          </if>
-          <if test="type=='S'.toString()">
-            subject LIKE '%'||#{ss}||'%'
-          </if>
-          <if test="type=='C'.toString()">
-            content LIKE '%'||#{ss}||'%'
-          </if>
-       </trim>
-     </foreach>
-    </trim>
+    <!-- WHERE ${type} LIKE '%'||#{ss}||'%' -->
+        <!-- <choose>
+          <when test='"name"==type'>
+            WHERE name LIKE #{pattern} 
+          </when>
+          <when test='"subject"==type'>
+            WHERE subject LIKE #{pattern}
+          </when>
+          <when test='"content"==type'>
+            WHERE content LIKE #{pattern}
+          </when>
+          <when test='"SC"==type'>
+            WHERE subject LIKE #{pattern}
+            OR content LIKE #{pattern}
+          </when>
+          <when test='"SN"==type'>
+            WHERE subject LIKE #{pattern}
+            OR name LIKE #{pattern}
+          </when>
+          <when test='"SCN"==type'>
+            WHERE subject LIKE #{pattern}
+            OR content LIKE #{pattern}
+            OR name LIKE #{pattern}
+          </when>
+         </choose> -->
+         <trim prefix="(" suffix=")" prefixOverrides="OR">
+           <foreach collection="typeArr" item='type'>
+             <trim prefix="OR">
+              <choose>
+               <when test="type=='N'.toString()">
+                 name LIKE '%'||#{ss}||'%'
+               </when>
+               <when test="type=='S'.toString()">
+                 subject LIKE '%'||#{ss}||'%'
+               </when>
+               <when test="type=='C'.toString()">
+                 content LIKE '%'||#{ss}||'%'
+               </when>
+               </choose>
+             </trim>
+           </foreach>
+         </trim>
   </select>
 </mapper>
 

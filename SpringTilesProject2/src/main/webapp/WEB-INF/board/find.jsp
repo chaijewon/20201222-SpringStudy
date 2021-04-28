@@ -25,7 +25,7 @@
 	        <th class="text-center" width="20%">작성일</th>
 	        <th class="text-center" width="10%">조회수</th>
 	      </tr>
-	      <c:forEach var="vo" items="${list }">
+	      <c:forEach var="vo" items="${fList }">
 	        <tr>
 		        <td class="text-center" width="10%">${vo.no }</td>
 		        <td class="text-left" width="45%">

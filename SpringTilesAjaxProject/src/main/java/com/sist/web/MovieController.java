@@ -37,6 +37,7 @@ public class MovieController {
 	  int end=(rowSize*curpage);
 	  map.put("start", start);
 	  map.put("end", end);
+	  
 	  if(fd==null)
 	  {
 		  List<MovieVO> list=dao.movieAllData(map);

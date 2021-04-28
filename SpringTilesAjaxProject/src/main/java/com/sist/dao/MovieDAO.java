@@ -93,6 +93,7 @@ public class MovieDAO extends SqlSessionDaoSupport{
    {
 	   return getSqlSession().selectOne("movieFindTotalPage", keyword);
    }
+   
 }
 
 
