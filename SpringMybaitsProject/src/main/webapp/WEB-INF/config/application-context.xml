@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <!-- AOP 설정 -->
+    <!-- 사용자 정의 클래스 등록 -->
+    <context:component-scan base-package="com.sist.*"/>
+    <!-- DataSource설정 -->
+    <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource"
+      p:driverClassName="oracle.jdbc.driver.OracleDriver"
+      p:url="jdbc:oracle:thin:@localhost:1521:XE"
+      p:username="hr"
+      p:password="happy"
+    />
+    <!-- 트랜잭션 설정 -->
+    <!-- Mybatis설정 -->
+    <bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean"
+      p:dataSource-ref="ds"
+      p:configLocation="/WEB-INF/config/Config.xml"
+    />
+    <!-- 보안 설정 -->
+    <!-- 웹 소켓 설정  -->
+    <!-- 유효성 검사 설정  -->
+    <!-- ViewResolver : 일반 Resolver , Tiles설정  -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+      p:prefix="/"
+      p:suffix=".jsp"
+    />
+    <!-- 스프링이 동작할 수 있게 메뉴얼 설정 -->
+</beans>
+
+
+
+
+
+
+
+
+
