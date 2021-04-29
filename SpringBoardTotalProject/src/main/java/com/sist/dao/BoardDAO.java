@@ -163,6 +163,7 @@ public class BoardDAO extends SqlSessionDaoSupport{
     	 boolean bCheck=false;
     	 // 비밀번호 읽기
     	 String db_pwd=getSqlSession().selectOne("boardGetPassword",no);
+    	 System.out.println("db_pwd="+db_pwd+",pwd="+pwd);
     	 if(pwd.equals(db_pwd))
     	 {
     		 bCheck=true;
@@ -179,6 +180,7 @@ public class BoardDAO extends SqlSessionDaoSupport{
     	 }
     	 return bCheck;
      }
+     
 }
 
 
