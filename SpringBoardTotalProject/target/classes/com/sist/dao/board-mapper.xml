@@ -68,7 +68,7 @@
   </sql>
   <select id="boardFindData" resultType="BoardVO" parameterType="hashmap">
    <bind name="pattern" value="'%'+ss+'%'"/>
-   SELECT no,subject,name,redate as regdate,hit 
+   SELECT no,subject,name,redate as regdate,hit,content 
    FROM spring_freeboard
    WHERE
    <!-- WHERE ${fs} LIKE #{pattern}-->
@@ -146,6 +146,27 @@
    </choose> -->
    <include refid="dsql"/>
   </select>
+  <!-- 수정 -->
+  <select id="boardGetPassword" resultType="string" parameterType="int">
+   SELECT pwd FROM spring_freeboard
+   <trim prefix="WHERE">
+    no=#{no}
+   </trim>
+  </select>
+  <update id="boardUpdate" parameterType="BoardVO">
+   UPDATE spring_freeboard SET
+   name=#{name},subject=#{subject},content=#{content}
+   WHERE no=#{no}
+  </update>
+  <!-- 삭제 : 트랜잭션 적용-->
+  <delete id="boardDelete" parameterType="int">
+   DELETE FROM spring_freeboard
+   WHERE no=#{no}
+  </delete>
+  <delete id="boardReplyDelete" parameterType="int">
+    DELETE FROM spring_reply
+    WHERE no=#{no}
+  </delete>
 </mapper>
 
 

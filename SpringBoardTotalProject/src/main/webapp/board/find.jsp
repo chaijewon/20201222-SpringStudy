@@ -17,6 +17,13 @@ h1 {
   text-align: center;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
 </head>
 <body>
    <div style="height: 50px"></div>
@@ -49,7 +56,9 @@ h1 {
             <c:forEach var="vo" items="${list }">
               <tr>
 	             <td width=10% class="text-center">${vo.no }</td>
-	             <td width=45% class="text-left">${vo.subject }</td>
+	             <td width=45% class="text-left">
+	               <a href="#" data-toggle="popover" title="${vo.subject }" data-content="${vo.content }">${vo.subject }</a>
+	             </td>
 	             <td width=15% class="text-center">${ vo.name}</td>
 	             <td width=20% class="text-center"><fmt:formatDate value="${vo.regdate }" 
 	                                            pattern="yyyy-MM-dd"/></td>

@@ -55,6 +55,18 @@ public class BoardService {
    {
 	   return bDao.boardFindDataCount(map);
    }
+   public BoardVO boardUpdateData(int no)
+   {
+	   return bDao.boardUpdateData(no);
+   }
+   public boolean boardUpdate(BoardVO vo)
+   {
+	   return bDao.boardUpdate(vo);
+   }
+   public boolean boardDelete(int no,String pwd)
+   {
+	   return bDao.boardDelete(no, pwd);
+   }
 }
 
 

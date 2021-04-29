@@ -4,6 +4,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 @Repository
 public class BoardDAO extends SqlSessionDaoSupport{
@@ -71,6 +74,10 @@ public class BoardDAO extends SqlSessionDaoSupport{
     	 getSqlSession().update("boardHitIncrement",no);
     	 return getSqlSession().selectOne("boardDetailData", no);
      }
+     public BoardVO boardUpdateData(int no)
+     {
+    	 return getSqlSession().selectOne("boardDetailData", no);
+     }
      /*
       *   <select id="boardFindData" resultType="BoardVO" parameterType="hashmap">
 		   SELECT no,subject,name,redate as regdate,hit 
@@ -107,6 +114,70 @@ public class BoardDAO extends SqlSessionDaoSupport{
      public int boardFindDataCount(Map map)
      {
     	 return getSqlSession().selectOne("boardFindDataCount",map);
+     }
+     /*
+      *   <!-- 수정 -->
+		  <select id="boardGetPassword" resultType="string" parameterType="int">
+		   SELECT pwd FROM spring_freeboard
+		   <trim prefix="WHERE">
+		    no=#{no}
+		   </trim>
+		  </select>
+		  <update id="boardUpdate" parameterType="BoardVO">
+		   UPDATE spring_freeboard SET
+		   name=#{name},subject=#{subject},content=#{content}
+		   WHERE no=#{no}
+		  </update>
+		  <!-- 삭제 : 트랜잭션 적용-->
+		  <delete id="boardDelete" parameterType="int">
+		   DELETE FROM spring_freeboard
+		   WHERE no=#{no}
+		  </delete>
+		  <delete id="boardReplyDelete" parameterType="int">
+		    DELETE FROM spring_reply
+		    WHERE no=#{no}
+		  </delete>
+      */
+     // 수정 
+     public boolean boardUpdate(BoardVO vo)
+     {
+    	 boolean bCheck=false;
+    	 // 비밀번호를 가지고 온다 
+    	 String db_pwd=getSqlSession().selectOne("boardGetPassword",vo.getNo());
+    	 if(db_pwd.equals(vo.getPwd()))
+    	 {
+    		 bCheck=true;
+    		 getSqlSession().update("boardUpdate",vo);
+    	 }
+    	 else
+    	 {
+    		 bCheck=false;
+    	 }
+    	 return bCheck;
+     }
+     
+     // 삭제
+     @Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+     public boolean boardDelete(int no,String pwd)
+     {
+    	 boolean bCheck=false;
+    	 // 비밀번호 읽기
+    	 String db_pwd=getSqlSession().selectOne("boardGetPassword",no);
+    	 if(pwd.equals(db_pwd))
+    	 {
+    		 bCheck=true;
+    		 /*
+    		  *   conn.setAutoCommit(false)
+    		  */
+    		 getSqlSession().delete("boardReplyDelete",no);
+    		 getSqlSession().delete("boardDelete",no);
+    		 /*
+    		  *  conn.commit()  => @Around
+    		  *  => 오류 발생 => conn.rollback() => @AfterThrowing
+    		  *  => 정상 수행 => conn.setAutoCommit(true) => @After(finally)
+    		  */
+    	 }
+    	 return bCheck;
      }
 }
 

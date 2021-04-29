@@ -11,5 +11,6 @@
     <mapper resource="com/sist/dao/board-mapper.xml"/>
     <mapper resource="com/sist/dao/reply-mapper.xml"/>
     <mapper resource="com/sist/dao/member-mapper.xml"/>
+    <mapper resource="com/sist/emp/emp-mapper.xml"/>
   </mappers>
 </configuration>

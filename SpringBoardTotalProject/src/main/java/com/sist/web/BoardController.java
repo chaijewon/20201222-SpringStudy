@@ -74,6 +74,57 @@ public class BoardController {
 	   model.addAttribute("count", count);
 	   return "board/find";
    }
+   /*
+    *   사용자 
+    *    1)          2)                   3)
+    *   .do  ==> BoardController <==> BoardDAO <==> 오라클
+    *                | Model  4)
+    *              ViewResolver
+    *                | request 5)
+    *               JSP
+    */
+   // Error 405(get/post)
+   @GetMapping("board/update.do")
+   public String board_update(int no,int page,Model model)
+   {
+	   // 결과값 
+	   BoardVO vo=service.boardUpdateData(no);
+	   // 데이터연동 (DAO)
+	   // 데이터를 JSP로 전송
+	   model.addAttribute("vo", vo);
+	   model.addAttribute("page", page);
+	   return "board/update";
+   }
+   @PostMapping("board/update_ok.do")
+   public String board_update_ok(BoardVO vo,int page,Model model)
+   {
+	   //데이터베이스 연동 
+	   boolean bCheck=service.boardUpdate(vo);
+	   // update_ok.jsp => 결과값을 보내서 사용자가 볼 수 있게 만든다 
+	   model.addAttribute("bCheck",bCheck);
+	   model.addAttribute("no", vo.getNo());
+	   model.addAttribute("page", page);
+	   return "board/update_ok";
+   }
+   
+   @GetMapping("board/delete.do")
+   public String board_delete(int no,int page,Model model)
+   {
+	   model.addAttribute("no", no);
+	   model.addAttribute("page", page);
+	   return "board/delete";
+   }
+   
+   @PostMapping("board/delete_ok.do")
+   public String board_delete_ok(int no,int page,String pwd,Model model)
+   {
+	   // 결과값 읽기 
+	   boolean bCheck=service.boardDelete(no, pwd);
+	   // delete_ok.jsp로 결과값을 전송 => 사용자가 볼 수 있게 처리 
+	   model.addAttribute("bCheck", bCheck);
+	   model.addAttribute("page", page); // list.jsp => no(X) , page(O)
+	   return "board/delete_ok";
+   }
 }
 
 
