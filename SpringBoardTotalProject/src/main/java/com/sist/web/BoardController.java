@@ -57,10 +57,10 @@ public class BoardController {
    {
 	   // 데이터 읽기 => DAO연결 
 	   BoardVO vo=service.boardDetailData(no);
-	   List<ReplyVO> rList=service.replyListData(no);
+	   //List<ReplyVO> rList=service.replyListData(no);
 	   model.addAttribute("vo", vo);
 	   model.addAttribute("page", page);
-	   model.addAttribute("rList", rList);
+	   //model.addAttribute("rList", rList);
 	   return "board/detail";
    }
    @PostMapping("board/find.do")
@@ -146,9 +146,10 @@ public class BoardController {
 	   
 	   // ReplyDAO로 전송 
 	   service.replyInsert(vo);
-	   ra.addAttribute("no", bno);
+	   // .do?bno=10&page=1
+	   ra.addAttribute("bno", bno);
 	   ra.addAttribute("page", page);
-	   return "redirect:detail.do"; // detail.do?no=1&page=1
+	   return "redirect:reply_list.do";
    }
    
    @PostMapping("board/reply_update.do")
@@ -160,23 +161,26 @@ public class BoardController {
 	   vo.setMsg(msg);
 	   service.replyUpdate(vo);
 	   // 수정 후에 데이터를 보내준다 
-	   ra.addAttribute("no",bno);
+	   ra.addAttribute("bno",bno);
 	   ra.addAttribute("page",page);
-	   return "redirect:detail.do";
+	   return "redirect:reply_list.do";
    }
    
    @PostMapping("board/reply_to_reply_insert.do")
-   public String board_reply_to_reply(int pno,ReplyVO vo,int page,RedirectAttributes ra,HttpSession session)
+   public String board_reply_to_reply(int pno,int bno,String msg,int page,RedirectAttributes ra,HttpSession session)
    {
 	   // 댓글 추가 작업 ==> DAO
+	   ReplyVO vo=new ReplyVO();
 	   String name=(String)session.getAttribute("name");
 	   String id=(String)session.getAttribute("id");
 	   vo.setName(name);
 	   vo.setId(id);
+	   vo.setBno(bno);
+	   vo.setMsg(msg);
 	   service.replyToReplyInsert(pno, vo);
-	   ra.addAttribute("no", vo.getBno());
+	   ra.addAttribute("bno", vo.getBno());
 	   ra.addAttribute("page", page);
-	   return "redirect:detail.do";
+	   return "redirect:reply_list.do";
    }
    
    @GetMapping("board/reply_delete.do")
@@ -184,12 +188,23 @@ public class BoardController {
    {
 	   // 삭제 처리 ==> DAO(service)
 	   service.replyDelete(no);
-	   ra.addAttribute("no", bno);
+	   ra.addAttribute("bno", bno);
 	   ra.addAttribute("page", page);
-	   return "redirect:detail.do";
+	   return "redirect:reply_list.do";
    }
    
+   @GetMapping("board/reply_list.do")
+   // board/reply_list.do?bno=1&page=2
+   public String board_reply_list(int bno,int page,Model model)
+   {
+	   List<ReplyVO> rList=service.replyListData(bno);
+	   model.addAttribute("page", page);
+	   model.addAttribute("rList", rList);
+	   model.addAttribute("no", bno);
+	   return "board/reply_list";
+   }
    
+  
 }
 
 
