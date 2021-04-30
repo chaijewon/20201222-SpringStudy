@@ -28,7 +28,22 @@ public interface RecipeMapper {
    @Select("SELECT COUNT(*) FROM recipe")
    public int recipeCount();
    // 상세보기 
+   @Select("SELECT * FROM recipe_make "
+		  +"WHERE no=#{no}")
+   public RecipeDetailVO recipeDetailData(int no);
    // 검색
+   // 전체
+   @Select("SELECT no,poster,title,chef,hit,rownum "
+		  +"FROM recipe "
+		  +"WHERE rownum<=20")
+   public List<RecipeVO> findAllData();
+   // 종류별  LIKE => 확장 (REGEXP_LIKE) |
+   @Select("SELECT no,poster,title,chef,hit,rownum "
+			  +"FROM recipe "
+			  +"WHERE rownum<=20 "
+			  +"AND REGEXP_LIKE(title,#{title})")
+   public List<RecipeVO> findRequestData(String title);
+   
 }
 
 

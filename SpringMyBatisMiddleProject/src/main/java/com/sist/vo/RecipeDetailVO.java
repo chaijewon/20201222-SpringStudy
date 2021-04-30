@@ -13,9 +13,18 @@ INFO3       NOT NULL VARCHAR2(20)
 FOOD_MAKE   NOT NULL CLOB           
 CHEF_INFO   NOT NULL VARCHAR2(1000) 
  */
+import java.util.*;
 public class RecipeDetailVO {
     private int no,rno;
     private String poster,chef,chef_poster,title,content,info1,info2,info3,food_make,chef_info;
+    private List<String> list=new ArrayList<String>();
+    
+	public List<String> getList() {
+		return list;
+	}
+	public void setList(List<String> list) {
+		this.list = list;
+	}
 	public int getNo() {
 		return no;
 	}

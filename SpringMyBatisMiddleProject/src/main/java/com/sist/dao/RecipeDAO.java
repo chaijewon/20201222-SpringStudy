@@ -3,8 +3,12 @@ import java.util.*;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+
 import com.sist.vo.*;
 import com.sist.mapper.*;
+@Repository
 public class RecipeDAO {
 	@Resource(name="recipeMapper")
     private RecipeMapper mapper;
@@ -22,5 +26,18 @@ public class RecipeDAO {
 	public int recipeCount()
 	{
 		return mapper.recipeCount();
+	}
+	public RecipeDetailVO recipeDetailData(int no)
+	{
+		return mapper.recipeDetailData(no);
+	}
+	public List<RecipeVO> findAllData()
+	{
+		return mapper.findAllData();
+	}
+	 
+	public List<RecipeVO> findRequestData(String title)
+	{
+		return mapper.findRequestData(title);
 	}
 }

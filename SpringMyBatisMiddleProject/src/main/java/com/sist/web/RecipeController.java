@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sist.vo.*;
 import com.sist.dao.*;
@@ -65,6 +66,68 @@ public class RecipeController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("count", count);
 		return "recipe/list";
+	}
+	
+	@GetMapping("recipe/detail.do")
+	public String recipe_detail(int no,Model model)
+	{
+		// DAO에서 데이터 읽기 => 해당 JSP로 값을 전송 
+		RecipeDetailVO vo=rDao.recipeDetailData(no);
+		String[] make=vo.getFood_make().split("\n");// 분리
+		vo.setList(Arrays.asList(make));//배열 => List형태로 변경 
+		model.addAttribute("vo", vo);
+		return "recipe/detail";
+	}
+	/*
+	 *   String[] data= {
+			  "밑반찬","메인반찬","국|탕","찌개","초스피드","손님접대","밥|죽|떡","술안주","면|만두",
+			  "일상","빵","다이어트","디저트","샐러드","양식","김치|젓갈|장류","도시락","간식",
+			  "돼지고기","영양식","과자","양념|소스|잼","차|음료|술","닭고기","야식","채소류","볶음",
+			  "스프","소고기","해물류","푸드스타일링","육류","달걀|유제품","부침","조림","이유식",
+			  "무침","해장","명절","버섯류","가공식품류","과일류","튀김","끓이기","찜","비빔",
+			  "밀가루","건어물류","절임","굽기","삶기","회","쌀","콩|견과류","곡류","데치기","퓨전"  
+	  };
+	 */
+	@GetMapping("recipe/find.do")
+	public String recipe_find(Model model)
+	{
+		String[] data= {
+				  "전체","밑반찬","메인반찬","국/탕","찌개","초스피드","손님접대","밥/죽/떡","술안주","면/만두",
+				  "일상","빵","다이어트","디저트","샐러드","양식","김치/젓갈/장류","도시락","간식",
+				  "돼지고기","영양식","과자","양념/소스/잼","차/음료/술","닭고기","야식","채소류","볶음",
+				  "스프","소고기","해물류","푸드스타일링","육류","달걀/유제품","부침","조림","이유식",
+				  "무침","해장","명절","버섯류","가공식품류","과일류","튀김","끓이기","찜","비빔",
+				  "밀가루","건어물류","절임","굽기","삶기","회","쌀","콩/견과류","곡류","데치기","퓨전"  
+		  };
+		  model.addAttribute("names", data);
+		 return "recipe/find";
+	}
+	@PostMapping("recipe/find_ok.do")
+	public String recipe_find_ok(String no,Model model)
+	{
+		if(no==null)
+			no="0";
+		int i=Integer.parseInt(no);
+		String[] data= {
+				  "전체","밑반찬","메인반찬","국|탕","찌개","초스피드","손님접대","밥|죽|떡","술안주","면|만두",
+				  "일상","빵","다이어트","디저트","샐러드","양식","김치|젓갈|장류","도시락","간식",
+				  "돼지고기","영양식","과자","양념|소스|잼","차|음료|술","닭고기","야식","채소류","볶음",
+				  "스프","소고기","해물류","푸드스타일링","육류","달걀|유제품","부침","조림","이유식",
+				  "무침","해장","명절","버섯류","가공식품류","과일류","튀김","끓이기","찜","비빔",
+				  "밀가루","건어물류","절임","굽기","삶기","회","쌀","콩/견과류","곡류","데치기","퓨전"  
+		  };
+		 List<RecipeVO> list=new ArrayList<RecipeVO>();
+		 if(i==0)
+		 {
+			 list=rDao.findAllData();
+		 }
+		 else
+		 {
+			 list=rDao.findRequestData(data[i]);
+		 }
+		 model.addAttribute("list", list);
+		 
+		 return "recipe/find_ok";
 	}
 }
 
