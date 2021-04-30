@@ -71,9 +71,9 @@
          <form method="post" action="../board/find.do">
 	         <ul class="inline">
 	          <select name="type" class="input-sm">
-	           <option value="name">이름</option>
-	           <option value="subject">제목</option>
-	           <option value="content">내용</option>
+	           <option value="N">이름</option>
+	           <option value="S">제목</option>
+	           <option value="C">내용</option>
 	           <option value="SC">제목+내용</option>
 	           <option value="SN">제목+이름</option>
 	           <option value="SCN">제목+내용+이름</option>
