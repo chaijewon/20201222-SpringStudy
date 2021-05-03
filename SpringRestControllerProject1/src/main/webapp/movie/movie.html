@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!-- 
+      JavaScript : Array(배열) , JSON(Object)
+      Java       : 	배열  , 객체 (class) 
+      => 여러개 객체 : 자바 (List),자바스크립트(JSON)
+           사용자 요청 => Java( List => JSON으로 변환 ) => JavaScript로 전송 
+ -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style type="text/css">
+.row{
+  margin: 0px auto;
+  width:1200px;
+}
+h1 {
+  text-align: center;
+}
+</style>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- <script>
+  $( function() {
+    
+    $( "#dialog" ).dialog();
+  } );
+  </script> -->
+<script type="text/javascript">
+// window.onload
+$(function(){
+	$( "#tabs" ).tabs();
+	$.getJSON('movie.json',function(data){
+		$.each(data["datas"],function(index,value){
+			$('#mp').append(
+			  "<td><img src="+value.poster+" width=150 height=180 class=img-rounded onclick=detail("+value.mno+")></td>"		
+			)
+		})
+	});
+	
+	$.getJSON('rank.json',function(data){
+		$.each(data["datas"],function(index,value){
+			$('#table1').append(
+			  "<tr><td>"+value.rank+"</td><td>"+value.title+"</td></tr>"		
+			)
+		})
+	});
+	
+	$.getJSON('box.json',function(data){
+		$.each(data["datas"],function(index,value){
+			$('#table2').append(
+			  "<tr><td>"+value.rank+"</td><td>"+value.title+"</td></tr>"		
+			)
+		})
+	});
+	
+	$.getJSON('reserve.json',function(data){
+		$.each(data["datas"],function(index,value){
+			$('#table3').append(
+			  "<tr><td>"+value.rank+"</td><td>"+value.title+"</td></tr>"		
+			)
+		})
+	});
+})
+function detail(mno)
+{
+	$.getJSON('movie.json',function(data){
+		$.each(data["datas"],function(index,value){
+			if(mno==value.mno)
+			{
+				$('#poster').attr("src",value.poster);
+				$('#director').text(value.director);
+				$('#actor').text(value.actor);
+				$('#genre').text(value.genre);
+				$('#grade').text(value.grade);
+				$('#story').text(value.story);
+				//$('#dialog').attr("title",value.title);
+				$('#dialog').dialog({
+					autoOpen:true,
+					width:450,
+					height:550,
+					modal:true
+				})
+				return true;
+			}
+		})
+	})
+	
+}
+</script>
+</head>
+<body>
+  <div style="height: 50px"></div>
+  <div class="container">
+    <h1>영화 목록</h1>
+    <div class="row">
+     <table class="table">
+      <tr id="mp">
+       
+      </tr>
+     </table>
+    </div>
+    <div class="row">
+     <div class="col-sm-6">
+       <div id="tabs">
+		  <ul>
+		    <li><a href="#tabs-1">영화순위</a></li>
+		    <li><a href="#tabs-2">박스오피스</a></li>
+		    <li><a href="#tabs-3">예매율</a></li>
+		  </ul>
+		  <div id="tabs-1">
+		    <table class="table" id="table1">
+		    
+		    </table>
+		  </div>
+		  <div id="tabs-2">
+		     <table class="table" id="table2">
+		    
+		     </table>
+		  </div>
+		  <div id="tabs-3">
+		    <table class="table" id="table3">
+		    
+		    </table>
+		  </div>
+		</div>
+     </div>
+     <div class="col-sm-6">
+       <div id="dialog" title="영화상세" style="display:none">
+	     <table class="table">
+	      <tr>
+	       <td class="text-center" rowspan="5" width="30%">
+	         <img src="" width=100% id="poster">
+	       </td>
+	       <td colspan="2" class="text-center" id="title"></td>
+	      </tr>
+	      <tr>
+	        <td width=20% class="text-right">감독</td>
+	        <td width=50% id="director"></td>
+	      </tr>
+	      <tr>
+	        <td width=20% class="text-right">출연</td>
+	        <td width=50% id="actor"></td>
+	      </tr>
+	      <tr>
+	        <td width=20% class="text-right">장르</td>
+	        <td width=50% id="genre"></td>
+	      </tr>
+	      <tr>
+	        <td width=20% class="text-right">등급</td>
+	        <td width=50% id="grade"></td>
+	      </tr>
+	      <tr>
+	       <td colspan="3" valign="top" id="story"></td>
+	      </tr>
+	     </table>
+	   </div>
+     </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
