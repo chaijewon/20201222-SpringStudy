@@ -17,4 +17,9 @@ public class EmpDAO {
 	{
 		return mapper.empFindData(empno);
 	}
+	
+	public List<EmpVO> empSearchData(Map map)
+	{
+		return mapper.empSearchData(map);
+	}
 }
