@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.dao.movie-mapper">
+ <select id="movieFindData" resultType="MovieVO" parameterType="hashmap">
+  SELECT mno,poster,title
+  FROM naver_movie
+  WHERE 
+  <trim prefix="(" suffix=")" prefixOverrides="OR">
+    <foreach collection="movieArr" item="type">
+     <trim prefix="OR">
+      <choose>
+        <when test="type=='T'.toString()">
+          title LIKE '%'||#{keyword}||'%'
+        </when>
+        <when test="type=='S'.toString()">
+          story LIKE '%'||#{keyword}||'%'
+        </when>
+        <when test="type=='G'.toString()">
+          genre LIKE '%'||#{keyword}||'%'
+        </when>
+        <when test="type=='A'.toString()">
+          actor LIKE '%'||#{keyword}||'%'
+        </when>
+        <when test="type=='D'.toString()">
+          director LIKE '%'||#{keyword}||'%'
+        </when>
+      </choose>
+     </trim>
+    </foreach>
+  </trim>
+ </select>
+</mapper>

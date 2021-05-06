@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 
+        마이바티스 : 오라클 연결 (getConnection()),오라클 해제(disConnection()) : 오라클정보 (driver,url,username,pwd)
+              PreparedStatement : SQL (mapper.xml)
+              ResultSet : VO,String ,int
+             ===================================================== ORM
+     -->
+    <bean id="ds"
+       class="org.apache.commons.dbcp.BasicDataSource"
+       p:driverClassName="oracle.jdbc.driver.OracleDriver"
+       p:url="jdbc:oracle:thin:@localhost:1521:XE"
+       p:username="hr"
+       p:password="happy"
+    />
+    <!-- maxActive="8" maxIdle="8" -->
+    <bean id="ssf"
+      class="org.mybatis.spring.SqlSessionFactoryBean"
+      p:dataSource-ref="ds"
+      p:configLocation="/WEB-INF/config/Config.xml"
+    />
+</beans>
