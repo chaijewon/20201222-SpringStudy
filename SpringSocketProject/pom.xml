@@ -76,7 +76,7 @@
 		    <version>1.18.20</version>
 		    <scope>provided</scope>
 		</dependency>
-	  <!-- jackson -->
+	  <!-- jackson : json -->
 	  
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
@@ -101,7 +101,7 @@
 		</dependency>
 		
       <!-- websocket -->
-      <dependency>
+        <dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-websocket</artifactId>
 		    <version>5.1.5.RELEASE</version>

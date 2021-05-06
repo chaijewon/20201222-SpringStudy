@@ -16,36 +16,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-// <context-component-scan base-package="com.sist.*"/>
 @ComponentScan(basePackages={"com.sist.*"})
 @EnableWebMvc
-/*
- *    사용자 요청 => DisptcherServlet => HandleMapping => Model클래스 => HandlerAdapter => DispatcherServlet
- *               ================
- *                 web.xml
- *      => ViewResolver => JSP
- *         ============
- *          application-context.xml
- *     *.do
- */
 public class RecipeConfig implements WebMvcConfigurer{
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
-    // 필요한 객체 생성 => <bean> => @Bean
-	/*
-	 *   <bean id="ds"
-	 *      class="org.apache.commons.dbcp.BasicDataSource"
-	 *      p:driverClassName=""
-	 *      p:url=""
-	 *      p:username=""
-	 *      p:password=""
-	 *      p:maxActive=""
-	 *      p:maxIdle=""
-	 *      p:maxWait="">
-	 */
 	@Bean(name="ds")
 	public DataSource dataSource()
 	{
@@ -59,13 +37,6 @@ public class RecipeConfig implements WebMvcConfigurer{
 		ds.setMaxWait(-1);
 		return ds;
 	}
-	/*
-	 *   <bean id="ssf"
-	 *     class="org.mybatis.spring.SqlSessionFactoryBean"
-	 *     p:dataSource-ref="ds"
-	 *     p:configLocation="/WEB-INF/config/Config.xml" => MyBatis(Annotation)
-	 *   />
-	 */
 	@Bean(name="ssf")
 	public SqlSessionFactory sqlSessionFactory() throws Exception
 	{

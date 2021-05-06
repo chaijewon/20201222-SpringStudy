@@ -29,7 +29,7 @@ public interface RecipeMapper {
    public int recipeCount();
    // 상세보기 
    @Select("SELECT * FROM recipe_make "
-		  +"WHERE no=#{no}")
+		  +"WHERE rno=#{no}")
    public RecipeDetailVO recipeDetailData(int no);
    // 검색
    // 전체
