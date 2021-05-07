@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+    <aop:aspectj-autoproxy/><!-- 로그파일 : 사용자 정의 : (라이브러리:***트랜잭션,보안=로그인처리,메소드보안(admin,manager,user)) -->
+    <!-- 사용자정의 클래스 메모리 할당 (패키지 단위) -->
+    <context:component-scan base-package="com.sist.*"/>
+    <!-- 
+         XML기반  : 공통으로 적용되는 부분을 설정
+         어노테이션 기반 : 개인 (개발자마다 따로..)
+         협업 
+     -->
+    <!-- 
+         .do ==> DispatcherServlet(web.xml) <===> @Controller,@RestController  <============> DAO
+                                        (@RequestMapping,@GetMapping,@PostMapping)
+                           | Model
+                       ViewResolver(JSP를 찾는다) => JSP가 어디에 있는지 확인 (경로명 : prefix)
+                           | request 전송
+                         JSP 
+                          |실행 결과 => USER브라우저로 전송 
+     -->
+     <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+        p:prefix="/"
+        p:suffix=".jsp"
+     />
+     
+     <!-- RestController : 한글 깨짐 방지 설정  -->
+     <mvc:annotation-driven>
+	    <mvc:message-converters>
+	        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	            <property name="supportedMediaTypes">
+	                <list>
+	                    <value>text/html;charset=UTF-8</value>
+	                </list>
+	            </property>
+	        </bean>
+	    </mvc:message-converters>
+   </mvc:annotation-driven>
+   
+   <!-- 유효성검사의 에러시 출력할 문자열을 만든다  -->
+   <bean id="messageSource"
+     class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+     p:basename="/WEB-INF/config/message"
+   />
+     
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
