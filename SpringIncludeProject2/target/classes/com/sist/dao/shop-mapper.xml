@@ -1,3 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sist.dao.shop-mapper"></mapper>
+<!-- 
+    private int no;
+    private int cno;
+    private String title;
+    private String poster;
+    private String price;
+    private int account;
+ -->
+<mapper namespace="com.sist.dao.shop-mapper">
+  <insert id="shopGoodsInsert" parameterType="ShopVO">
+    INSERT INTO shop_goods VALUES(
+      sg_no_seq.nextval,
+      #{cno},
+      #{title},
+      #{poster},
+      #{price},
+      #{account}
+    )
+  </insert>
+  <select id="shopGoodsListData" resultType="ShopVO" parameterType="hashmap">
+    SELECT no,title,poster,price,num 
+    FROM (SELECT no,title,poster,price,rownum as num 
+    FROM (SELECT /*+ INDEX_ASC(shop_goods sg_no_pk) */ no,title,poster,price 
+    FROM shop_goods WHERE cno=#{cno}))
+    WHERE num BETWEEN #{start} AND #{end}
+  </select>
+  <select id="shopGoodsTotalPage" parameterType="int" resultType="int">
+    SELECT CEIL(COUNT(*)/18.0) FROM shop_goods
+    WHERE cno=#{cno}
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+

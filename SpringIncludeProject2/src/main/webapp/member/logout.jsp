@@ -5,16 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-.row_home{
-  margin: 0px auto;
-  width:800px;
-}
-</style>
 </head>
 <body>
-  <div class="row row_home">
-   <img src="../main/back.png" width=100%>
-  </div>
+
 </body>
 </html>
