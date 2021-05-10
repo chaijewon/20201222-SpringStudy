@@ -30,6 +30,119 @@
     SELECT CEIL(COUNT(*)/18.0) FROM shop_goods
     WHERE cno=#{cno}
   </select>
+  <!-- 
+        NO      NOT NULL NUMBER        
+		CNO              NUMBER        
+		TITLE   NOT NULL VARCHAR2(300) 
+		POSTER  NOT NULL VARCHAR2(500) 
+		PRICE   NOT NULL VARCHAR2(30)  
+		ACCOUNT          NUMBER
+   -->
+   <!-- 
+       private int no;
+    private String id;
+    private int goods_no;
+    private int goods_count;
+    private Date regdate;
+    private String address;
+    private String tel;
+    private String email;
+    private String state;
+    private int total_price;
+    -->
+   <select id="shopGoodsDetailData" resultType="ShopVO" parameterType="int">
+     SELECT no,title,poster,price,account
+     FROM shop_goods
+     WHERE no=#{no}
+   </select>
+   <insert id="shopGoodsInputInsert" parameterType="ShopInputVO">
+    <!-- 
+      selectKey : 자동 증가 번호 => 서브쿼리 (insert에서만 사용이 가능)
+                                 한번만 사용이 가능 
+                  keyProperty="no" 어떤 컬럼을 증가 할지 사용 
+                  
+                    NO          NOT NULL NUMBER        
+					ID                   VARCHAR2(20)  
+					GOODS_NO             NUMBER        
+					GOODS_COUNT          NUMBER        
+					REGDATE              DATE          
+					ADDRESS     NOT NULL VARCHAR2(500) 
+					TEL         NOT NULL VARCHAR2(20)  
+					EMAIL       NOT NULL VARCHAR2(100) 
+					STATE                VARCHAR2(1)   
+					TOTAL_PRICE          NUMBER    
+     -->
+    <selectKey keyProperty="no" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(no)+1,1) as no FROM shop_input
+    </selectKey>
+    INSERT INTO shop_input VALUES(
+      #{no},
+      #{id},
+      #{goods_no},
+      #{goods_count},
+      SYSDATE,
+      #{address},
+      #{tel},
+      #{email},
+      'n',
+      #{total_price}
+    )
+   </insert>
+   <!-- mypage 
+        private int goods_no;
+    private int goods_count;
+    private Date regdate;
+    private String address;
+    private String tel;
+    private String email;
+    private String state;
+    private int total_price;
+    
+      <select id="" resultType="MemberVO">
+        SELECT id,name,sex,address
+        FROM member
+      </select>
+      
+      ResultSet rs=ps.executeQuery();
+      
+      setId(rs.getString("id"))
+      
+      Spring , MyBatis
+      => p:
+         property => setXxx()를 찾는다 
+         #{} => getXxx()
+         컬럼명과 VO의 변수가 동일 => Default
+   -->
+   <resultMap type="ShopInputVO" id="shopInputMap">
+     <result property="no" column="no"/>
+     <result property="svo.poster" column="poster"/>
+     <result property="svo.title" column="title"/>
+     <result property="address" column="address"/>
+     <result property="id" column="id"/>
+     <result property="email" column="email"/>
+     <result property="tel" column="tel"/>
+     <result property="state" column="state"/>
+     <result property="regdate" column="regdate"/>
+     <result property="total_price" column="total_price"/>
+     <result property="goods_count" column="goods_count"/>
+   </resultMap>
+   <select id="myAdminPageListData" resultMap="shopInputMap" parameterType="string">
+     SELECT si.no,poster,title,address,id,email,tel,state,regdate,total_price
+     FROM shop_input si,shop_goods sg
+     WHERE si.goods_no=sg.no AND id=#{id}
+   </select>
+   
+   <select id="adminPageListData" resultMap="shopInputMap">
+     SELECT si.no,id,poster,title,address,id,email,tel,state,regdate,total_price
+     FROM shop_input si,shop_goods sg
+     WHERE si.goods_no=sg.no
+   </select>
+   
+   <update id="adminOkUpdate" parameterType="int">
+     UPDATE shop_input SET
+     state='y'
+     WHERE no=#{no}
+   </update>
 </mapper>
 
 

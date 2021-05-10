@@ -50,6 +50,43 @@ public class ShopDAO extends SqlSessionDaoSupport{
    {
 	   return getSqlSession().selectOne("shopGoodsTotalPage",cno);
    }
+   /*
+    *   <select id="shopGoodsDetailData" resultType="ShopVO" parameterType="int">
+	     SELECT no,title,poster,price,account
+	     FROM shop_goods
+	     WHERE no=#{no}
+	   </select>
+    */
+   public ShopVO shopGoodsDetailData(int no)
+   {
+	   return getSqlSession().selectOne("shopGoodsDetailData",no);
+   }
+   // <insert id="shopGoodsInputInsert" parameterType="ShopInputVO">
+   public void shopGoodsInputInsert(ShopInputVO vo)
+   {
+	   getSqlSession().insert("shopGoodsInputInsert",vo);
+   }
+   // <select id="myAdminPageListData" resultMap="shopInputMap" parameterType="string">
+   public List<ShopInputVO> myAdminPageListData(String id)
+   {
+	   return getSqlSession().selectList("myAdminPageListData",id);
+   }
+   // <select id="adminPageListData" resultMap="shopInputMap">
+   public List<ShopInputVO> adminPageListData()
+   {
+	   return getSqlSession().selectList("adminPageListData");
+   }
+   /*
+    *  <update id="adminOkUpdate" parameterType="int">
+		     UPDATE shop_input SET
+		     state='y'
+		     WHERE no=#{no}
+		   </update>
+    */
+   public void adminOkUpdate(int no)
+   {
+	   getSqlSession().update("adminOkUpdate",no);
+   }
 }
 
 

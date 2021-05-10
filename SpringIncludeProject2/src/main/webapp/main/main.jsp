@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,17 +22,27 @@
       <li class="active"><a href="../main/main.do">Home</a></li>
       <li><a href="../member/join.do">회원가입</a></li>
       <li><a href="../shop/list.do">쇼핑몰</a></li>
-      <li><a href="#">마이페이지</a></li>
+      <c:if test="${sessionScope.id!=null && sessionScope.admin==1 }">
+       <li><a href="../shop/mypage.do">마이페이지</a></li>
+      </c:if>
+      <c:if test="${sessionScope.id!=null && sessionScope.admin==0 }">
+       <li><a href="../shop/admin.do">관리자페이지</a></li>
+      </c:if>
     </ul>
   </div>
 </nav>
 
 <div style="height: 30px"></div>
 <div class="container">
-  <div class="col-sm-2">
-    <jsp:include page="../member/login.jsp"></jsp:include>
+  <div class="col-sm-3">
+    <c:if test="${sessionScope.id==null }">
+     <jsp:include page="../member/login.jsp"></jsp:include>
+    </c:if>
+    <c:if test="${sessionScope.id!=null }">
+     <jsp:include page="../member/logout.jsp"></jsp:include>
+    </c:if>
   </div>
-  <div class="col-sm-10">
+  <div class="col-sm-9">
     <jsp:include page="${main_jsp }"></jsp:include>
   </div>
 </div>

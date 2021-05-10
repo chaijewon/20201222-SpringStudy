@@ -8,12 +8,13 @@
 <style type="text/css">
 .row_login{
   margin: 0px auto;
-  width:180px;
+  width:200px;
 }
 </style>
 </head>
 <body>
   <div class="row row_login">
+    <form method="post" action="../member/login_ok.do">
     <table class="table">
      <tr>
       <td width="20%" class="text-right">ID</td>
@@ -29,10 +30,11 @@
      </tr>
      <tr>
        <td colspan="2" class="text-right">
-         <input type="button" class="btn btn-sm btn-success" value="로그인">
+         <input type="submit" class="btn btn-sm btn-success" value="로그인">
        </td>
      </tr>
     </table>
+    </form>
   </div>
 </body>
 </html>

@@ -37,6 +37,21 @@ public class MemberVO {
 	  private String addr1;
 	  private String addr2;
 	  private String tel;
+	  private String msg;
+	  private int admin;
+	  
+	public int getAdmin() {
+		return admin;
+	}
+	public void setAdmin(int admin) {
+		this.admin = admin;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 	public String getId() {
 		return id;
 	}

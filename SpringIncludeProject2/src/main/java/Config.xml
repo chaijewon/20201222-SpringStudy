@@ -7,7 +7,6 @@
     <typeAlias type="com.sist.dao.MemberVO" alias="MemberVO"/>
     <typeAlias type="com.sist.dao.ShopVO" alias="ShopVO"/>
     <typeAlias type="com.sist.dao.ZipcodeVO" alias="ZipcodeVO"/>
-    <typeAlias type="com.sist.dao.ShopInputVO" alias="ShopInputVO"/>
   </typeAliases>
   <mappers>
     <mapper resource="com/sist/dao/member-mapper.xml"/>
