@@ -81,6 +81,7 @@ public class RecommandRestController {
 	   {
 		   String[] data={"봄","여름","가을","겨울", "맑은날", "추운날", "흐린날","비오는날", "더운날", "눈오는날"};
 		   JSONArray arr=new JSONArray();
+		   // 베일리*
 		   for(String s:data)
 		   {
 			   JSONObject obj=new JSONObject();
@@ -102,7 +103,11 @@ public class RecommandRestController {
 	   try
 	   {
 		   List<String> list=mgr.naverBlogData(fd);
-		   List<String> tList=dao.movieGetTitleData();
+		   List<String> tList=dao.movieGetTitleData(); // tList=Aarrys.asList(data)
+		   for(String s:tList)
+		   {
+			   System.out.println(s);
+		   }
 		   int[] count=new int[tList.size()];
 		   Pattern[] p=new Pattern[tList.size()];
 		   for(int i=0;i<p.length;i++)
@@ -136,7 +141,7 @@ public class RecommandRestController {
 			   if(count[i]>0)
 			   {
 				   MovieVO vo=dao.movieData(tList.get(i));
-				   System.out.println(vo.getTitle());
+				   //System.out.println(vo.getTitle());
 				   mList.add(vo);
 			   }
 		   }
@@ -152,7 +157,7 @@ public class RecommandRestController {
 			   arr.add(obj);
 		   }
 		   json=arr.toJSONString();
-		   System.out.println(json);
+		   //System.out.println(json);
 	   }catch(Exception ex){}
 	   return json;
    }

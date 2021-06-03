@@ -3,18 +3,21 @@ package com.sist.web;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 import com.sist.dao.*;
 @RestController
+@CrossOrigin("http://127.0.0.1:8000")
 public class RecipeRestController {
 	@Autowired
     private RecipeDAO dao;
 	
-	@GetMapping("recipe/recipe_list.do")//Ajax로 전송 
+	@GetMapping(value="recipe/recipe_list.do",produces="text/plain;charset=UTF-8")//Ajax로 전송 
 	public String recipe_list(String page)
 	{
+		System.out.println("장고에서 연결");
 		String json="";
 		try
 		{
@@ -67,7 +70,7 @@ public class RecipeRestController {
 		return json;
 	}
 	
-	@GetMapping("recipe/detail.do")
+	@GetMapping(value="recipe/detail.do",produces="text/plain;charset=utf-8")
 	public String recipe_detail(int no)
 	{
 		String json="";
